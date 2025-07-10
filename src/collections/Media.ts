@@ -14,6 +14,7 @@ export const Media: CollectionConfig = {
     ],
     upload: {
         // staticDir: 'media',
+        skipSafeFetch: [{ hostname: process.env.CMS_HOSTNAME || '' }],
         imageSizes: [
             {
                 name: 'bannerDesktop',
@@ -46,7 +47,7 @@ export const Media: CollectionConfig = {
                 height: 449,
             },
             {
-                name: 'productAddon',
+                name: '400x400',
                 width: 400,
                 height: 400,
             },
@@ -64,11 +65,6 @@ export const Media: CollectionConfig = {
                 name: 'productListingThumbnail',
                 width: 400,
                 height: 619,
-            },
-            {
-                name: 'productListingThumbnailMobile',
-                width: 400,
-                height: 400,
             },
             {
                 name: 'storyMediaDesktop',

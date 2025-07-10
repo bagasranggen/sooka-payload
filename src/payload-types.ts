@@ -248,7 +248,7 @@ export interface Media {
       filesize?: number | null;
       filename?: string | null;
     };
-    productAddon?: {
+    '400x400'?: {
       url?: string | null;
       width?: number | null;
       height?: number | null;
@@ -273,14 +273,6 @@ export interface Media {
       filename?: string | null;
     };
     productListingThumbnail?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    productListingThumbnailMobile?: {
       url?: string | null;
       width?: number | null;
       height?: number | null;
@@ -799,7 +791,7 @@ export interface MediaSelect<T extends boolean = true> {
               filesize?: T;
               filename?: T;
             };
-        productAddon?:
+        '400x400'?:
           | T
           | {
               url?: T;
@@ -830,16 +822,6 @@ export interface MediaSelect<T extends boolean = true> {
               filename?: T;
             };
         productListingThumbnail?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        productListingThumbnailMobile?:
           | T
           | {
               url?: T;
