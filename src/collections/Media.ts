@@ -14,6 +14,7 @@ export const Media: CollectionConfig = {
     ],
     upload: {
         // staticDir: 'media',
+        skipSafeFetch: [{ hostname: process.env.CMS_HOSTNAME || '' }],
         imageSizes: [
             {
                 name: 'bannerDesktop',
