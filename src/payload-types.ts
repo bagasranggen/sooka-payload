@@ -248,7 +248,7 @@ export interface Media {
       filesize?: number | null;
       filename?: string | null;
     };
-    '400x400'?: {
+    assets400x400?: {
       url?: string | null;
       width?: number | null;
       height?: number | null;
@@ -791,7 +791,7 @@ export interface MediaSelect<T extends boolean = true> {
               filesize?: T;
               filename?: T;
             };
-        '400x400'?:
+        assets400x400?:
           | T
           | {
               url?: T;

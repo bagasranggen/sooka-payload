@@ -5,6 +5,13 @@ export const Media: CollectionConfig = {
     admin: {
         group: 'Assets',
     },
+    access: {
+        read: ({ req: { headers } }) => {
+            const hostnames = [process.env.WEB_HOSTNAME, process.env.CMS_HOSTNAME].filter((item) => Boolean(item));
+            const forwardedHostname = headers?.get('x-forwarded-host')?.split(':').shift();
+            return hostnames.includes(forwardedHostname);
+        },
+    },
     fields: [
         {
             name: 'alt',
@@ -15,6 +22,8 @@ export const Media: CollectionConfig = {
     upload: {
         // staticDir: 'media',
         skipSafeFetch: [{ hostname: process.env.CMS_HOSTNAME || '' }],
+        disableLocalStorage: true,
+        adminThumbnail: 'assets400x400',
         imageSizes: [
             {
                 name: 'bannerDesktop',
@@ -47,7 +56,7 @@ export const Media: CollectionConfig = {
                 height: 449,
             },
             {
-                name: '400x400',
+                name: 'assets400x400',
                 width: 400,
                 height: 400,
             },
