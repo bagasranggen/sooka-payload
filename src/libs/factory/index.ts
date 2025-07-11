@@ -1,1 +1,1 @@
-export * from './createArrayFromNumber'
+export * from './createArrayFromNumber';
