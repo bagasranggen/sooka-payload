@@ -1,3 +1,1 @@
-export const cleanArrayString = (array: string[]): string[] => {
-    return array.filter((item: string) => item !== '');
-};
+export const cleanArrayString = (array: string[]): string[] => array.filter((item: string) => item !== '');
