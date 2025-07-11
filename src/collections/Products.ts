@@ -1,11 +1,27 @@
 import type { CollectionConfig } from 'payload';
 import { BasePageTab, BasePrice } from '@/collections/shared';
+import { revalidatePage } from '@/libs/utils';
 
 export const Products: CollectionConfig = {
     slug: 'products',
     admin: {
         useAsTitle: 'title',
         group: 'Content',
+    },
+    hooks: {
+        afterChange: [
+            async ({ req: { payload }, doc }) => {
+                const category = await payload.findByID({
+                    collection: 'categories',
+                    id: doc?.category,
+                });
+
+                await revalidatePage({ path: '/', layout: 'layout' });
+                await revalidatePage({ path: '/' });
+                if (category?.uri) await revalidatePage({ path: `/${category.uri}` });
+                await revalidatePage({ path: `/${doc.uri}` });
+            },
+        ],
     },
     fields: [
         {
