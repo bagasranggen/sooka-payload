@@ -1,10 +1,18 @@
 import { GlobalConfig } from 'payload';
 import { BaseLink, BaseStatus, BaseTarget } from '@/collections/shared';
+import { revalidatePage } from '@/libs/utils/revalidatePage';
 
 export const Homepage: GlobalConfig = {
     slug: 'homepage',
     admin: {
         group: 'Content',
+    },
+    hooks: {
+        afterChange: [
+            async () => {
+                await revalidatePage({ path: '/' });
+            },
+        ],
     },
     fields: [
         {
