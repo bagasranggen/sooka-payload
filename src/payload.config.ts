@@ -53,6 +53,10 @@ export default buildConfig({
             collections: {
                 media: {
                     prefix: 'media',
+                    disablePayloadAccessControl: true,
+                    generateFileURL: (args) => {
+                        return `${process.env.S3_MEDIA_URI}/${args.prefix}/${args.filename}`;
+                    },
                 },
             },
             bucket: process.env.S3_BUCKET || '',
