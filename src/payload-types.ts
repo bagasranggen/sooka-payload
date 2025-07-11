@@ -171,9 +171,7 @@ export interface Addon {
   thumbnail: number | Media;
   prices?:
     | {
-        price: number;
-        salePrice?: number | null;
-        note?: string | null;
+        price: Price;
         id?: string | null;
       }[]
     | null;
@@ -316,6 +314,15 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Price".
+ */
+export interface Price {
+  normalPrice: number;
+  salePrice?: number | null;
+  note?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "categories".
  */
 export interface Category {
@@ -445,9 +452,7 @@ export interface Product {
   };
   category: number | Category;
   prices: {
-    price: number;
-    salePrice?: number | null;
-    note?: string | null;
+    price: Price;
     id?: string | null;
   }[];
   addons?: (number | Addon)[] | null;
@@ -680,13 +685,20 @@ export interface AddonsSelect<T extends boolean = true> {
   prices?:
     | T
     | {
-        price?: T;
-        salePrice?: T;
-        note?: T;
+        price?: T | PriceSelect<T>;
         id?: T;
       };
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Price_select".
+ */
+export interface PriceSelect<T extends boolean = true> {
+  normalPrice?: T;
+  salePrice?: T;
+  note?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -978,9 +990,7 @@ export interface ProductsSelect<T extends boolean = true> {
   prices?:
     | T
     | {
-        price?: T;
-        salePrice?: T;
-        note?: T;
+        price?: T | PriceSelect<T>;
         id?: T;
       };
   addons?: T;
