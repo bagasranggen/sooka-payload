@@ -348,16 +348,21 @@ export interface Category {
     };
     [k: string]: unknown;
   } | null;
-  meta?: {
-    title?: string | null;
-    description?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (number | null) | Media;
-  };
+  meta?: Meta;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Meta".
+ */
+export interface Meta {
+  title?: string | null;
+  description?: string | null;
+  /**
+   * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+   */
+  image?: (number | null) | Media;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -456,14 +461,7 @@ export interface Product {
     id?: string | null;
   }[];
   addons?: (number | Addon)[] | null;
-  meta?: {
-    title?: string | null;
-    description?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (number | null) | Media;
-  };
+  meta?: Meta;
   updatedAt: string;
   createdAt: string;
 }
@@ -712,15 +710,18 @@ export interface CategoriesSelect<T extends boolean = true> {
   url?: T;
   uri?: T;
   description?: T;
-  meta?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        image?: T;
-      };
+  meta?: T | MetaSelect<T>;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Meta_select".
+ */
+export interface MetaSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  image?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -994,13 +995,7 @@ export interface ProductsSelect<T extends boolean = true> {
         id?: T;
       };
   addons?: T;
-  meta?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        image?: T;
-      };
+  meta?: T | MetaSelect<T>;
   updatedAt?: T;
   createdAt?: T;
 }
