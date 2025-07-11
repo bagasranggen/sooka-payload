@@ -1,11 +1,20 @@
 import type { CollectionConfig } from 'payload';
 import { BasePageTab } from '@/collections/shared';
+import { revalidatePage } from '@/libs/utils';
 
 export const Categories: CollectionConfig = {
     slug: 'categories',
     admin: {
         useAsTitle: 'title',
         group: 'Content',
+    },
+    hooks: {
+        afterChange: [
+            async ({ doc }) => {
+                await revalidatePage({ path: '/', layout: 'layout' });
+                await revalidatePage({ path: `/${doc.uri}` });
+            },
+        ],
     },
     fields: [
         {
