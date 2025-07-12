@@ -1,5 +1,5 @@
 import { GlobalConfig } from 'payload';
-import { BaseLink, BaseStatus, BaseTarget } from '@/collections/shared';
+import { BaseLink, BasePageTab, BaseStatus, BaseTarget } from '@/collections/shared';
 import { revalidatePage } from '@/libs/utils/revalidatePage';
 
 export const Homepage: GlobalConfig = {
@@ -18,6 +18,18 @@ export const Homepage: GlobalConfig = {
         {
             type: 'tabs',
             tabs: [
+                BasePageTab({
+                    typeHandle: 'typeSectionHomepageIndex',
+                    withUrl: true,
+                    updateUrl: async ({ url }) => {
+                        await new Promise((resolve) => {
+                            setTimeout(() => {
+                                url.push('__home__');
+                                resolve(true);
+                            }, 30);
+                        });
+                    },
+                }),
                 {
                     label: 'Banner',
                     fields: [

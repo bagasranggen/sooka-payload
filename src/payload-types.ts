@@ -1117,6 +1117,12 @@ export interface Navigation {
  */
 export interface Homepage {
   id: number;
+  typeHandle?: string | null;
+  entryStatus?: ('disabled' | 'live') | null;
+  title: string;
+  slug?: string | null;
+  url?: string | null;
+  uri?: string | null;
   bannerMedia?:
     | {
         source?: ('products' | 'custom') | null;
@@ -1232,6 +1238,12 @@ export interface NavigationSelect<T extends boolean = true> {
  * via the `definition` "homepage_select".
  */
 export interface HomepageSelect<T extends boolean = true> {
+  typeHandle?: T;
+  entryStatus?: T;
+  title?: T;
+  slug?: T;
+  url?: T;
+  uri?: T;
   bannerMedia?:
     | T
     | {
