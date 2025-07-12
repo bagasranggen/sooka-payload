@@ -1214,6 +1214,7 @@ export interface Homepage {
         id?: string | null;
       }[]
     | null;
+  meta?: Meta;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1279,6 +1280,7 @@ export interface HomepageSelect<T extends boolean = true> {
         description?: T;
         id?: T;
       };
+  meta?: T | MetaSelect<T>;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
