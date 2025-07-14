@@ -77,6 +77,10 @@ export const Products: CollectionConfig = {
                     label: 'Content',
                     fields: [
                         {
+                            type: 'textarea',
+                            name: 'bannerTitle',
+                        },
+                        {
                             type: 'richText',
                             name: 'description',
                             required: true,
