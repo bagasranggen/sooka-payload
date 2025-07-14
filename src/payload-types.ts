@@ -102,10 +102,12 @@ export interface Config {
   globals: {
     navigation: Navigation;
     homepage: Homepage;
+    footer: Footer;
   };
   globalsSelect: {
     navigation: NavigationSelect<false> | NavigationSelect<true>;
     homepage: HomepageSelect<false> | HomepageSelect<true>;
+    footer: FooterSelect<false> | FooterSelect<true>;
   };
   locale: null;
   user:
@@ -1222,6 +1224,24 @@ export interface Homepage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer".
+ */
+export interface Footer {
+  id: number;
+  address: string;
+  businessHours?: string | null;
+  socialMedia?:
+    | {
+        source?: ('reactIcon' | 'custom') | null;
+        reactIcon?: 'CiInstagram' | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "navigation_select".
  */
 export interface NavigationSelect<T extends boolean = true> {
@@ -1283,6 +1303,24 @@ export interface HomepageSelect<T extends boolean = true> {
         id?: T;
       };
   meta?: T | MetaSelect<T>;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer_select".
+ */
+export interface FooterSelect<T extends boolean = true> {
+  address?: T;
+  businessHours?: T;
+  socialMedia?:
+    | T
+    | {
+        source?: T;
+        reactIcon?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
