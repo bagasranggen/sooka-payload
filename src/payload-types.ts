@@ -440,6 +440,7 @@ export interface Product {
   thumbnail?: (number | null) | Media;
   thumbnailHover?: (number | null) | Media;
   marquee?: (number | Media)[] | null;
+  bannerTitle?: string | null;
   description: {
     root: {
       type: string;
@@ -986,6 +987,7 @@ export interface ProductsSelect<T extends boolean = true> {
   thumbnail?: T;
   thumbnailHover?: T;
   marquee?: T;
+  bannerTitle?: T;
   description?: T;
   category?: T;
   prices?:
