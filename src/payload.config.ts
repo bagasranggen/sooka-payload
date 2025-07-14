@@ -74,6 +74,7 @@ export default buildConfig({
             tabbedUI: true,
             interfaceName: 'Meta',
             collections: ['products', 'categories'],
+            globals:['homepage'],
             uploadsCollection: 'media',
             generateTitle: ({ doc }) => `${doc.title} - Sooka Baked Goods`,
             generateDescription: ({ doc }) => doc.excerpt,
