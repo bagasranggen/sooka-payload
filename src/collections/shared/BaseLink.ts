@@ -25,6 +25,7 @@ export const BaseLink = (props?: BaseLinkProps): Field => {
                             { value: 'products', label: 'Products' },
                             { value: 'categories', label: 'Categories' },
                             { value: 'pages', label: 'Pages' },
+                            { value: 'mail', label: 'Mail' },
                             { value: 'custom', label: 'Custom' },
                         ],
                     },
@@ -66,6 +67,16 @@ export const BaseLink = (props?: BaseLinkProps): Field => {
                         admin: {
                             condition: (data, siblingData) => siblingData?.source === 'custom',
                             placeholder: 'Type your custom URL (ex. https://www.sookabakedgoods.com/)',
+                        },
+                    },
+                    {
+                        type: 'text',
+                        name: 'mail',
+                        label: false,
+                        required: true,
+                        admin: {
+                            condition: (data, siblingData) => siblingData?.source === 'mail',
+                            placeholder: 'Type your email address (ex. example@example.com)',
                         },
                     },
                     BaseTarget({

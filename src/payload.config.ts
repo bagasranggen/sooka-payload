@@ -22,6 +22,7 @@ import { Users } from '@/collections/Users';
 
 import { Navigation } from '@/globals/Navigation';
 import { Homepage } from '@/globals/Homepage';
+import { Footer } from '@/globals/Footer';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -34,7 +35,7 @@ export default buildConfig({
         },
     },
     collections: [AddOns, Categories, Media, Pages, Products, Tags, Testimonials, Tokens, Users],
-    globals: [Navigation, Homepage],
+    globals: [Navigation, Homepage, Footer],
     editor: lexicalEditor(),
     secret: process.env.PAYLOAD_SECRET || '',
     typescript: {
@@ -74,7 +75,7 @@ export default buildConfig({
             tabbedUI: true,
             interfaceName: 'Meta',
             collections: ['products', 'categories'],
-            globals:['homepage'],
+            globals: ['homepage'],
             uploadsCollection: 'media',
             generateTitle: ({ doc }) => `${doc.title} - Sooka Baked Goods`,
             generateDescription: ({ doc }) => doc.excerpt,
