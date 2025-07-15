@@ -34,7 +34,8 @@ export const Footer: GlobalConfig = {
                             fields: [
                                 {
                                     type: 'group',
-                                    label: 'Icon',
+                                    name: 'icon',
+                                    interfaceName: 'Icon',
                                     fields: [
                                         {
                                             type: 'row',

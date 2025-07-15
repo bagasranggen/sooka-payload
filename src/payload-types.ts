@@ -12,8 +12,7 @@
  */
 export type SocialMedia =
   | {
-      source?: 'reactIcon' | null;
-      reactIcon?: ('CiInstagram' | 'CiMail') | null;
+      icon?: Icon;
       link?: Link;
       id?: string | null;
     }[]
@@ -1250,6 +1249,14 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Icon".
+ */
+export interface Icon {
+  source?: 'reactIcon' | null;
+  reactIcon?: ('CiInstagram' | 'CiMail') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "navigation_select".
  */
 export interface NavigationSelect<T extends boolean = true> {
@@ -1332,10 +1339,17 @@ export interface FooterSelect<T extends boolean = true> {
  * via the `definition` "SocialMedia_select".
  */
 export interface SocialMediaSelect<T extends boolean = true> {
-  source?: T;
-  reactIcon?: T;
+  icon?: T | IconSelect<T>;
   link?: T | LinkSelect<T>;
   id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Icon_select".
+ */
+export interface IconSelect<T extends boolean = true> {
+  source?: T;
+  reactIcon?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
