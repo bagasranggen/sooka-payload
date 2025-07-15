@@ -7,6 +7,17 @@
  */
 
 /**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SocialMedia".
+ */
+export type SocialMedia =
+  | {
+      icon?: Icon;
+      link?: Link;
+      id?: string | null;
+    }[]
+  | null;
+/**
  * Supported timezones in IANA format.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -102,10 +113,12 @@ export interface Config {
   globals: {
     navigation: Navigation;
     homepage: Homepage;
+    footer: Footer;
   };
   globalsSelect: {
     navigation: NavigationSelect<false> | NavigationSelect<true>;
     homepage: HomepageSelect<false> | HomepageSelect<true>;
+    footer: FooterSelect<false> | FooterSelect<true>;
   };
   locale: null;
   user:
@@ -483,11 +496,12 @@ export interface ContentBlockCallout {
  * via the `definition` "Link".
  */
 export interface Link {
-  source?: ('products' | 'categories' | 'pages' | 'custom') | null;
+  source?: ('products' | 'categories' | 'pages' | 'mail' | 'custom') | null;
   product?: (number | null) | Product;
   page?: (number | null) | Page;
   category?: (number | null) | Category;
   custom?: string | null;
+  mail?: string | null;
   target?: boolean | null;
   label?: string | null;
 }
@@ -970,6 +984,7 @@ export interface LinkSelect<T extends boolean = true> {
   page?: T;
   category?: T;
   custom?: T;
+  mail?: T;
   target?: T;
   label?: T;
 }
@@ -1222,6 +1237,26 @@ export interface Homepage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer".
+ */
+export interface Footer {
+  id: number;
+  address: string;
+  businessHours?: string | null;
+  socialMedia?: SocialMedia;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Icon".
+ */
+export interface Icon {
+  source?: 'reactIcon' | null;
+  reactIcon?: ('CiInstagram' | 'CiMail') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "navigation_select".
  */
 export interface NavigationSelect<T extends boolean = true> {
@@ -1286,6 +1321,35 @@ export interface HomepageSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer_select".
+ */
+export interface FooterSelect<T extends boolean = true> {
+  address?: T;
+  businessHours?: T;
+  socialMedia?: T | SocialMediaSelect<T>;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SocialMedia_select".
+ */
+export interface SocialMediaSelect<T extends boolean = true> {
+  icon?: T | IconSelect<T>;
+  link?: T | LinkSelect<T>;
+  id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Icon_select".
+ */
+export interface IconSelect<T extends boolean = true> {
+  source?: T;
+  reactIcon?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
