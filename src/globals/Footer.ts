@@ -1,4 +1,5 @@
 import { GlobalConfig } from 'payload';
+import { BaseLink } from '@/collections/shared';
 
 export const Footer: GlobalConfig = {
     slug: 'footer',
@@ -29,31 +30,47 @@ export const Footer: GlobalConfig = {
                         {
                             type: 'array',
                             name: 'socialMedia',
+                            interfaceName: 'SocialMedia',
                             fields: [
                                 {
-                                    type: 'row',
+                                    type: 'group',
+                                    label: 'Icon',
                                     fields: [
                                         {
-                                            type: 'select',
-                                            name: 'source',
-                                            admin: {
-                                                width: '15%',
-                                            },
-                                            options: [
-                                                { label: 'React Icon', value: 'reactIcon' },
-                                                { label: 'Custom', value: 'custom' },
+                                            type: 'row',
+                                            fields: [
+                                                {
+                                                    type: 'select',
+                                                    name: 'source',
+                                                    label: false,
+                                                    admin: {
+                                                        width: '15%',
+                                                        placeholder: 'Select icon source',
+                                                    },
+                                                    options: [
+                                                        { label: 'React Icon', value: 'reactIcon' },
+                                                        // { label: 'Custom', value: 'custom' },
+                                                    ],
+                                                },
+                                                {
+                                                    type: 'select',
+                                                    name: 'reactIcon',
+                                                    label: false,
+                                                    admin: {
+                                                        width: '35%',
+                                                        condition: (data, siblingData) =>
+                                                            siblingData?.source === 'reactIcon',
+                                                    },
+                                                    options: [
+                                                        { label: 'Instagram', value: 'CiInstagram' },
+                                                        { label: 'Mail', value: 'CiMail' },
+                                                    ],
+                                                },
                                             ],
-                                        },
-                                        {
-                                            type: 'select',
-                                            name: 'reactIcon',
-                                            admin: {
-                                                condition: (data, siblingData) => siblingData?.source === 'reactIcon',
-                                            },
-                                            options: [{ label: 'Istagram', value: 'CiInstagram' }],
                                         },
                                     ],
                                 },
+                                BaseLink(),
                             ],
                         },
                     ],
