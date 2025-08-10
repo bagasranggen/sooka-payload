@@ -23,7 +23,6 @@ export const Media: CollectionConfig = {
         // staticDir: 'media',
         skipSafeFetch: [{ hostname: process.env.CMS_HOSTNAME || '' }],
         disableLocalStorage: true,
-        adminThumbnail: 'assets400x400',
         imageSizes: [
             {
                 name: 'bannerDesktop',
