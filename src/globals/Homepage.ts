@@ -1,6 +1,8 @@
 import { GlobalConfig } from 'payload';
 import { BaseLink, BasePageTab, BaseStatus, BaseTarget } from '@/collections/shared';
+
 import { revalidatePage } from '@/libs/utils/revalidatePage';
+import { createArrayFromNumber } from '@/libs/factory/createArrayFromNumber';
 
 export const Homepage: GlobalConfig = {
     slug: 'homepage',
@@ -66,7 +68,7 @@ export const Homepage: GlobalConfig = {
                                             type: 'relationship',
                                             name: 'tag',
                                             relationTo: 'tags',
-                                            admin: { width: '50%' },
+                                            admin: { width: '40%' },
                                         },
                                         {
                                             type: 'select',
@@ -76,7 +78,25 @@ export const Homepage: GlobalConfig = {
                                                 { value: 'left', label: 'Left' },
                                                 { value: 'right', label: 'Right' },
                                             ],
-                                            admin: { width: '50%' },
+                                            admin: { width: '40%' },
+                                        },
+                                        {
+                                            type: 'select',
+                                            name: 'bannerOverlay',
+                                            label: 'Overlay',
+                                            defaultValue: '3',
+                                            options: createArrayFromNumber(6).map((item) => {
+                                                const value = item.toString();
+
+                                                let label = 'none';
+                                                if (item > 0) label = (item * 10).toString();
+
+                                                return {
+                                                    value,
+                                                    label,
+                                                };
+                                            }),
+                                            admin: { width: '20%' },
                                         },
                                     ],
                                 },
