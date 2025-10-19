@@ -81,7 +81,8 @@ export interface Config {
   collections: {
     addons: Addon;
     categories: Category;
-    media: Media;
+    mediaGlobal: MediaGlobal;
+    mediaProduct: MediaProduct;
     pages: Page;
     products: Product;
     tags: Tag;
@@ -96,7 +97,8 @@ export interface Config {
   collectionsSelect: {
     addons: AddonsSelect<false> | AddonsSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
-    media: MediaSelect<false> | MediaSelect<true>;
+    mediaGlobal: MediaGlobalSelect<false> | MediaGlobalSelect<true>;
+    mediaProduct: MediaProductSelect<false> | MediaProductSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
@@ -181,7 +183,7 @@ export interface Addon {
   slug?: string | null;
   url?: string | null;
   uri?: string | null;
-  thumbnail: number | Media;
+  thumbnail: number | MediaGlobal;
   prices?:
     | {
         price: Price;
@@ -193,9 +195,155 @@ export interface Addon {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
+ * via the `definition` "mediaGlobal".
  */
-export interface Media {
+export interface MediaGlobal {
+  id: number;
+  alt: string;
+  prefix?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+  sizes?: {
+    bannerDesktop?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    bannerTablet?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    bannerMobile?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    assets400x400?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    storyMediaDesktop?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    storyMediaMobile?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    mediaDividerTablet?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    mediaDividerMobile?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Price".
+ */
+export interface Price {
+  normalPrice: number;
+  salePrice?: number | null;
+  note?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: number;
+  typeHandle?: string | null;
+  entryStatus?: ('disabled' | 'live') | null;
+  title: string;
+  slug?: string | null;
+  url?: string | null;
+  uri?: string | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  meta?: Meta;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Meta".
+ */
+export interface Meta {
+  title?: string | null;
+  description?: string | null;
+  /**
+   * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+   */
+  image?:
+    | ({
+        relationTo: 'mediaGlobal';
+        value: number | MediaGlobal;
+      } | null)
+    | ({
+        relationTo: 'mediaProduct';
+        value: number | MediaProduct;
+      } | null);
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "mediaProduct".
+ */
+export interface MediaProduct {
   id: number;
   alt: string;
   prefix?: string | null;
@@ -291,91 +439,7 @@ export interface Media {
       filesize?: number | null;
       filename?: string | null;
     };
-    storyMediaDesktop?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    storyMediaMobile?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    mediaDividerTablet?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    mediaDividerMobile?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
   };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Price".
- */
-export interface Price {
-  normalPrice: number;
-  salePrice?: number | null;
-  note?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories".
- */
-export interface Category {
-  id: number;
-  typeHandle?: string | null;
-  entryStatus?: ('disabled' | 'live') | null;
-  title: string;
-  slug?: string | null;
-  url?: string | null;
-  uri?: string | null;
-  description?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  meta?: Meta;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Meta".
- */
-export interface Meta {
-  title?: string | null;
-  description?: string | null;
-  /**
-   * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-   */
-  image?: (number | null) | Media;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -400,7 +464,7 @@ export interface Page {
  * via the `definition` "ContentBlockGallery".
  */
 export interface ContentBlockGallery {
-  media?: (number | Media)[] | null;
+  media?: (number | MediaGlobal)[] | null;
   cbSpacing?: CbSpacing;
   id?: string | null;
   blockName?: string | null;
@@ -450,9 +514,9 @@ export interface Product {
   slug?: string | null;
   url?: string | null;
   uri?: string | null;
-  thumbnail?: (number | null) | Media;
-  thumbnailHover?: (number | null) | Media;
-  marquee?: (number | Media)[] | null;
+  thumbnail?: (number | null) | MediaProduct;
+  thumbnailHover?: (number | null) | MediaProduct;
+  marquee?: (number | MediaProduct)[] | null;
   bannerTitle?: string | null;
   description: {
     root: {
@@ -604,8 +668,12 @@ export interface PayloadLockedDocument {
         value: number | Category;
       } | null)
     | ({
-        relationTo: 'media';
-        value: number | Media;
+        relationTo: 'mediaGlobal';
+        value: number | MediaGlobal;
+      } | null)
+    | ({
+        relationTo: 'mediaProduct';
+        value: number | MediaProduct;
       } | null)
     | ({
         relationTo: 'pages';
@@ -740,9 +808,112 @@ export interface MetaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media_select".
+ * via the `definition` "mediaGlobal_select".
  */
-export interface MediaSelect<T extends boolean = true> {
+export interface MediaGlobalSelect<T extends boolean = true> {
+  alt?: T;
+  prefix?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+  sizes?:
+    | T
+    | {
+        bannerDesktop?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        bannerTablet?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        bannerMobile?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        assets400x400?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        storyMediaDesktop?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        storyMediaMobile?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        mediaDividerTablet?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        mediaDividerMobile?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "mediaProduct_select".
+ */
+export interface MediaProductSelect<T extends boolean = true> {
   alt?: T;
   prefix?: T;
   updatedAt?: T;
@@ -850,46 +1021,6 @@ export interface MediaSelect<T extends boolean = true> {
               filename?: T;
             };
         productListingThumbnail?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        storyMediaDesktop?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        storyMediaMobile?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        mediaDividerTablet?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        mediaDividerMobile?:
           | T
           | {
               url?: T;
@@ -1147,7 +1278,7 @@ export interface Homepage {
         tag?: (number | null) | Tag;
         textAlign?: ('left' | 'right') | null;
         bannerOverlay?: ('0' | '1' | '2' | '3' | '4' | '5') | null;
-        media?: (number | null) | Media;
+        media?: (number | null) | MediaGlobal;
         title?: string | null;
         description?: {
           root: {
@@ -1177,8 +1308,8 @@ export interface Homepage {
         id?: string | null;
       }[]
     | null;
-  storyMediaMain?: (number | null) | Media;
-  storyMediaSecondary?: (number | null) | Media;
+  storyMediaMain?: (number | null) | MediaGlobal;
+  storyMediaSecondary?: (number | null) | MediaGlobal;
   storyDescription?: {
     root: {
       type: string;
@@ -1195,7 +1326,7 @@ export interface Homepage {
     [k: string]: unknown;
   } | null;
   testimonials?: (number | Testimonial)[] | null;
-  imageDividerMedia?: (number | null) | Media;
+  imageDividerMedia?: (number | null) | MediaGlobal;
   orderDescription?: {
     root: {
       type: string;
