@@ -54,13 +54,13 @@ export const Products: CollectionConfig = {
                                 {
                                     type: 'upload',
                                     name: 'thumbnail',
-                                    relationTo: 'media',
+                                    relationTo: 'mediaProduct',
                                     admin: { width: '50%' },
                                 },
                                 {
                                     type: 'upload',
                                     name: 'thumbnailHover',
-                                    relationTo: 'media',
+                                    relationTo: 'mediaProduct',
                                     admin: { width: '50%' },
                                 },
                             ],
@@ -68,7 +68,7 @@ export const Products: CollectionConfig = {
                         {
                             type: 'upload',
                             name: 'marquee',
-                            relationTo: 'media',
+                            relationTo: 'mediaProduct',
                             hasMany: true,
                         },
                     ],

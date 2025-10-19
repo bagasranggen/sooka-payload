@@ -110,7 +110,7 @@ export const Homepage: GlobalConfig = {
                                         {
                                             type: 'upload',
                                             name: 'media',
-                                            relationTo: 'media',
+                                            relationTo: 'mediaGlobal',
                                         },
                                         {
                                             type: 'text',
@@ -191,12 +191,12 @@ export const Homepage: GlobalConfig = {
                                 {
                                     type: 'upload',
                                     name: 'storyMediaMain',
-                                    relationTo: 'media',
+                                    relationTo: 'mediaGlobal',
                                 },
                                 {
                                     type: 'upload',
                                     name: 'storyMediaSecondary',
-                                    relationTo: 'media',
+                                    relationTo: 'mediaGlobal',
                                 },
                             ],
                         },
@@ -223,7 +223,7 @@ export const Homepage: GlobalConfig = {
                         {
                             type: 'upload',
                             name: 'imageDividerMedia',
-                            relationTo: 'media',
+                            relationTo: 'mediaGlobal',
                         },
                     ],
                 },

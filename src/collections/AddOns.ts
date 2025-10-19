@@ -22,7 +22,7 @@ export const AddOns: CollectionConfig = {
                         {
                             type: 'upload',
                             name: 'thumbnail',
-                            relationTo: 'media',
+                            relationTo: 'mediaGlobal',
                             required: true,
                         },
                     ],

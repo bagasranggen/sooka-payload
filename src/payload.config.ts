@@ -12,7 +12,8 @@ import sharp from 'sharp';
 
 import { AddOns } from '@/collections/AddOns';
 import { Categories } from '@/collections/Categories';
-import { Media } from '@/collections/Media';
+import { MediaGlobal } from '@/collections/MediaGlobal';
+import { MediaProduct } from '@/collections/MediaProduct';
 import { Pages } from '@/collections/Pages';
 import { Products } from '@/collections/Products';
 import { Tags } from '@/collections/Tags';
@@ -34,7 +35,7 @@ export default buildConfig({
             baseDir: path.resolve(dirname),
         },
     },
-    collections: [AddOns, Categories, Media, Pages, Products, Tags, Testimonials, Tokens, Users],
+    collections: [AddOns, Categories, MediaGlobal, MediaProduct, Pages, Products, Tags, Testimonials, Tokens, Users],
     globals: [Navigation, Homepage, Footer],
     editor: lexicalEditor(),
     secret: process.env.PAYLOAD_SECRET || '',
@@ -52,8 +53,15 @@ export default buildConfig({
         // storage-adapter-placeholder
         s3Storage({
             collections: {
-                media: {
-                    prefix: 'media',
+                mediaGlobal: {
+                    prefix: 'mediaGlobal',
+                    disablePayloadAccessControl: true,
+                    generateFileURL: (args) => {
+                        return `${process.env.S3_MEDIA_URI}/${args.prefix}/${args.filename}`;
+                    },
+                },
+                mediaProduct: {
+                    prefix: 'mediaProduct',
                     disablePayloadAccessControl: true,
                     generateFileURL: (args) => {
                         return `${process.env.S3_MEDIA_URI}/${args.prefix}/${args.filename}`;
@@ -76,7 +84,7 @@ export default buildConfig({
             interfaceName: 'Meta',
             collections: ['products', 'categories'],
             globals: ['homepage'],
-            uploadsCollection: 'media',
+            uploadsCollection: ['mediaGlobal', 'mediaProduct'],
             generateTitle: ({ doc }) => `${doc.title} - Sooka Baked Goods`,
             generateDescription: ({ doc }) => doc.excerpt,
         }),

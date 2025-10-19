@@ -14,7 +14,7 @@ export const ContentBlockGallery: Block = {
                         {
                             type: 'upload',
                             name: 'media',
-                            relationTo: 'media',
+                            relationTo: 'mediaGlobal',
                             hasMany: true,
                             maxRows: 6,
                         },
