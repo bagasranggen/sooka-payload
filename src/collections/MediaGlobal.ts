@@ -30,11 +30,6 @@ export const MediaGlobal: CollectionConfig = {
             MEDIA_DIMENSIONS.BANNER_TABLET,
             MEDIA_DIMENSIONS.BANNER_MOBILE,
             {
-                name: 'assets400x400',
-                width: 400,
-                height: 400,
-            },
-            {
                 name: 'storyMediaDesktop',
                 width: 550,
                 height: 733,

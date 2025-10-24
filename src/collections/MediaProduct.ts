@@ -45,11 +45,6 @@ export const MediaProduct: CollectionConfig = {
                 height: 449,
             },
             {
-                name: 'assets400x400',
-                width: 400,
-                height: 400,
-            },
-            {
                 name: 'productMarquee',
                 width: 550,
                 height: 413,
