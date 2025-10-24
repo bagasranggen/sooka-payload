@@ -81,6 +81,7 @@ export interface Config {
   collections: {
     addons: Addon;
     categories: Category;
+    mediaAddon: MediaAddon;
     mediaGlobal: MediaGlobal;
     mediaProduct: MediaProduct;
     pages: Page;
@@ -97,6 +98,7 @@ export interface Config {
   collectionsSelect: {
     addons: AddonsSelect<false> | AddonsSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
+    mediaAddon: MediaAddonSelect<false> | MediaAddonSelect<true>;
     mediaGlobal: MediaGlobalSelect<false> | MediaGlobalSelect<true>;
     mediaProduct: MediaProductSelect<false> | MediaProductSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
@@ -183,21 +185,19 @@ export interface Addon {
   slug?: string | null;
   url?: string | null;
   uri?: string | null;
-  thumbnail: number | MediaGlobal;
-  prices?:
-    | {
-        price: Price;
-        id?: string | null;
-      }[]
-    | null;
+  thumbnail: number | MediaAddon;
+  prices: {
+    price: Price;
+    id?: string | null;
+  }[];
   updatedAt: string;
   createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "mediaGlobal".
+ * via the `definition` "mediaAddon".
  */
-export interface MediaGlobal {
+export interface MediaAddon {
   id: number;
   alt: string;
   prefix?: string | null;
@@ -213,63 +213,7 @@ export interface MediaGlobal {
   focalX?: number | null;
   focalY?: number | null;
   sizes?: {
-    bannerDesktop?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    bannerTablet?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    bannerMobile?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
     assets400x400?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    storyMediaDesktop?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    storyMediaMobile?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    mediaDividerTablet?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    mediaDividerMobile?: {
       url?: string | null;
       width?: number | null;
       height?: number | null;
@@ -331,6 +275,10 @@ export interface Meta {
    */
   image?:
     | ({
+        relationTo: 'mediaAddon';
+        value: number | MediaAddon;
+      } | null)
+    | ({
         relationTo: 'mediaGlobal';
         value: number | MediaGlobal;
       } | null)
@@ -338,6 +286,84 @@ export interface Meta {
         relationTo: 'mediaProduct';
         value: number | MediaProduct;
       } | null);
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "mediaGlobal".
+ */
+export interface MediaGlobal {
+  id: number;
+  alt: string;
+  prefix?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+  sizes?: {
+    bannerDesktop?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    bannerTablet?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    bannerMobile?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    storyMediaDesktop?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    storyMediaMobile?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    mediaDividerTablet?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    mediaDividerMobile?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -400,14 +426,6 @@ export interface MediaProduct {
       filename?: string | null;
     };
     productDetailMobile?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    assets400x400?: {
       url?: string | null;
       width?: number | null;
       height?: number | null;
@@ -678,6 +696,10 @@ export interface PayloadLockedDocument {
         value: number | Category;
       } | null)
     | ({
+        relationTo: 'mediaAddon';
+        value: number | MediaAddon;
+      } | null)
+    | ({
         relationTo: 'mediaGlobal';
         value: number | MediaGlobal;
       } | null)
@@ -818,6 +840,39 @@ export interface MetaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "mediaAddon_select".
+ */
+export interface MediaAddonSelect<T extends boolean = true> {
+  alt?: T;
+  prefix?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+  sizes?:
+    | T
+    | {
+        assets400x400?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "mediaGlobal_select".
  */
 export interface MediaGlobalSelect<T extends boolean = true> {
@@ -858,16 +913,6 @@ export interface MediaGlobalSelect<T extends boolean = true> {
               filename?: T;
             };
         bannerMobile?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        assets400x400?:
           | T
           | {
               url?: T;
@@ -991,16 +1036,6 @@ export interface MediaProductSelect<T extends boolean = true> {
               filename?: T;
             };
         productDetailMobile?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        assets400x400?:
           | T
           | {
               url?: T;
