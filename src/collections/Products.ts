@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload';
-import { BasePageTab, BasePrice } from '@/collections/shared';
+
+import { BaseFlavour, BasePageTab, BasePrice } from '@/collections/shared';
 import { revalidatePage } from '@/libs/utils';
 
 export const Products: CollectionConfig = {
@@ -90,6 +91,36 @@ export const Products: CollectionConfig = {
                             name: 'category',
                             relationTo: 'categories',
                             required: true,
+                        },
+                        {
+                            type: 'group',
+                            name: 'flavour',
+                            interfaceName: 'Flavour',
+                            fields: [
+                                {
+                                    type: 'row',
+                                    fields: [
+                                        BaseFlavour({
+                                            name: 'freshCreamy',
+                                            label: 'Fresh - Creamy',
+                                            required: true,
+                                            admin: { width: '33%' },
+                                        }),
+                                        BaseFlavour({
+                                            name: 'custardySpongy',
+                                            label: 'Custardy - Spongy',
+                                            required: true,
+                                            admin: { width: '33%' },
+                                        }),
+                                        BaseFlavour({
+                                            name: 'tangySweet',
+                                            label: 'Tangy - Sweet',
+                                            required: true,
+                                            admin: { width: '33%' },
+                                        }),
+                                    ],
+                                },
+                            ],
                         },
                         {
                             type: 'array',
