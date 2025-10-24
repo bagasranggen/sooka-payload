@@ -534,6 +534,7 @@ export interface Product {
     [k: string]: unknown;
   };
   category: number | Category;
+  flavour: Flavour;
   prices: {
     price: Price;
     id?: string | null;
@@ -542,6 +543,15 @@ export interface Product {
   meta?: Meta;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Flavour".
+ */
+export interface Flavour {
+  freshCreamy: '_0' | '_10' | '_20' | '_30' | '_40' | '_50' | '_60' | '_70' | '_80' | '_90' | '_100';
+  custardySpongy: '_0' | '_10' | '_20' | '_30' | '_40' | '_50' | '_60' | '_70' | '_80' | '_90' | '_100';
+  tangySweet: '_0' | '_10' | '_20' | '_30' | '_40' | '_50' | '_60' | '_70' | '_80' | '_90' | '_100';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1136,6 +1146,7 @@ export interface ProductsSelect<T extends boolean = true> {
   bannerTitle?: T;
   description?: T;
   category?: T;
+  flavour?: T | FlavourSelect<T>;
   prices?:
     | T
     | {
@@ -1146,6 +1157,15 @@ export interface ProductsSelect<T extends boolean = true> {
   meta?: T | MetaSelect<T>;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Flavour_select".
+ */
+export interface FlavourSelect<T extends boolean = true> {
+  freshCreamy?: T;
+  custardySpongy?: T;
+  tangySweet?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
