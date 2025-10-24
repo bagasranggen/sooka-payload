@@ -12,6 +12,7 @@ import sharp from 'sharp';
 
 import { AddOns } from '@/collections/AddOns';
 import { Categories } from '@/collections/Categories';
+import { MediaAddon } from '@/collections/MediaAddon';
 import { MediaGlobal } from '@/collections/MediaGlobal';
 import { MediaProduct } from '@/collections/MediaProduct';
 import { Pages } from '@/collections/Pages';
@@ -35,7 +36,19 @@ export default buildConfig({
             baseDir: path.resolve(dirname),
         },
     },
-    collections: [AddOns, Categories, MediaGlobal, MediaProduct, Pages, Products, Tags, Testimonials, Tokens, Users],
+    collections: [
+        AddOns,
+        Categories,
+        MediaAddon,
+        MediaGlobal,
+        MediaProduct,
+        Pages,
+        Products,
+        Tags,
+        Testimonials,
+        Tokens,
+        Users,
+    ],
     globals: [Navigation, Homepage, Footer],
     editor: lexicalEditor(),
     secret: process.env.PAYLOAD_SECRET || '',
@@ -53,6 +66,13 @@ export default buildConfig({
         // storage-adapter-placeholder
         s3Storage({
             collections: {
+                mediaAddon: {
+                    prefix: 'mediaAddon',
+                    disablePayloadAccessControl: true,
+                    generateFileURL: (args) => {
+                        return `${process.env.S3_MEDIA_URI}/${args.prefix}/${args.filename}`;
+                    },
+                },
                 mediaGlobal: {
                     prefix: 'mediaGlobal',
                     disablePayloadAccessControl: true,
@@ -84,7 +104,7 @@ export default buildConfig({
             interfaceName: 'Meta',
             collections: ['products', 'categories'],
             globals: ['homepage'],
-            uploadsCollection: ['mediaGlobal', 'mediaProduct'],
+            uploadsCollection: ['mediaAddon', 'mediaGlobal', 'mediaProduct'],
             generateTitle: ({ doc }) => `${doc.title} - Sooka Baked Goods`,
             generateDescription: ({ doc }) => doc.excerpt,
         }),
