@@ -34,6 +34,7 @@ export const AddOns: CollectionConfig = {
                             type: 'array',
                             name: 'prices',
                             fields: BasePrice,
+                            required: true,
                         },
                     ],
                 },
