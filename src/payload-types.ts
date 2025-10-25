@@ -1428,7 +1428,7 @@ export interface Homepage {
  */
 export interface Footer {
   id: number;
-  address: string;
+  address?: string | null;
   businessHours?: string | null;
   socialMedia?: SocialMedia;
   updatedAt?: string | null;
