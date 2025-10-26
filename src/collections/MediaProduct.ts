@@ -52,12 +52,17 @@ export const MediaProduct: CollectionConfig = {
             {
                 name: 'productMarqueeMobile',
                 width: 250,
-                height: 333,
+                height: 187,
             },
             {
                 name: 'productListingThumbnail',
                 width: 400,
                 height: 619,
+            },
+            {
+                name: 'productListingThumbnailMobile',
+                width: 600,
+                height: 600,
             },
         ],
     },
