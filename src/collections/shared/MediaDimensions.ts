@@ -16,4 +16,14 @@ export const MEDIA_DIMENSIONS: Record<string, ImageSize> = {
         width: 600,
         height: 1072,
     },
+    MARQUEE: {
+        name: 'marquee',
+        width: 550,
+        height: 413,
+    },
+    MARQUEE_MOBILE: {
+        name: 'marqueeMobile',
+        width: 250,
+        height: 187,
+    },
 } as const;

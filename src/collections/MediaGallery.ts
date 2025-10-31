@@ -1,5 +1,7 @@
 import type { CollectionConfig } from 'payload';
 
+import { MEDIA_DIMENSIONS } from '@/collections/shared/MediaDimensions';
+
 export const MediaGallery: CollectionConfig = {
     slug: 'mediaGallery',
     admin: {
@@ -24,6 +26,8 @@ export const MediaGallery: CollectionConfig = {
         skipSafeFetch: [{ hostname: process.env.CMS_HOSTNAME || '' }],
         disableLocalStorage: true,
         imageSizes: [
+            MEDIA_DIMENSIONS.MARQUEE,
+            MEDIA_DIMENSIONS.MARQUEE_MOBILE,
             {
                 name: 'collage1x1',
                 width: 600,
