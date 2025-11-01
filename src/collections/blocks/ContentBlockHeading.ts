@@ -16,6 +16,10 @@ export const ContentBlockHeading: Block = {
                             type: 'text',
                             name: 'title',
                         },
+                        {
+                            type: 'textarea',
+                            name: 'description',
+                        },
                     ],
                 },
                 {

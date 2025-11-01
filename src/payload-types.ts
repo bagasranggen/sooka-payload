@@ -677,6 +677,7 @@ export interface ContentBlockGallery {
  */
 export interface ContentBlockHeading {
   title?: string | null;
+  description?: string | null;
   headingLevel?: ('1' | '2' | '3' | '4' | '5') | null;
   cbSpacing?: CbSpacing;
   id?: string | null;
@@ -1365,6 +1366,7 @@ export interface ContentBlockGallerySelect<T extends boolean = true> {
  */
 export interface ContentBlockHeadingSelect<T extends boolean = true> {
   title?: T;
+  description?: T;
   headingLevel?: T;
   cbSpacing?: T | CbSpacingSelect<T>;
   id?: T;
