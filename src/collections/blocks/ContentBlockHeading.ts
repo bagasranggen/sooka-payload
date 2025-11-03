@@ -16,6 +16,10 @@ export const ContentBlockHeading: Block = {
                             type: 'text',
                             name: 'title',
                         },
+                        {
+                            type: 'richText',
+                            name: 'description',
+                        },
                     ],
                 },
                 {
@@ -25,9 +29,6 @@ export const ContentBlockHeading: Block = {
                             type: 'select',
                             name: 'headingLevel',
                             defaultValue: '1',
-                            // options:[
-                            //     {value: '1', label:'1'}
-                            // ]
                             options: createArrayFromNumber(5).map((item) => ({
                                 value: (item + 1).toString(),
                                 label: `${item + 1}`,

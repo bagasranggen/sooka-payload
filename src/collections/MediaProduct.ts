@@ -1,7 +1,9 @@
 import type { CollectionConfig } from 'payload';
 
-export const Media: CollectionConfig = {
-    slug: 'media',
+import { MEDIA_DIMENSIONS } from '@/collections/shared/MediaDimensions';
+
+export const MediaProduct: CollectionConfig = {
+    slug: 'mediaProduct',
     admin: {
         group: 'Assets',
     },
@@ -24,21 +26,9 @@ export const Media: CollectionConfig = {
         skipSafeFetch: [{ hostname: process.env.CMS_HOSTNAME || '' }],
         disableLocalStorage: true,
         imageSizes: [
-            {
-                name: 'bannerDesktop',
-                width: 1600,
-                height: 900,
-            },
-            {
-                name: 'bannerTablet',
-                width: 800,
-                height: 840,
-            },
-            {
-                name: 'bannerMobile',
-                width: 600,
-                height: 1072,
-            },
+            MEDIA_DIMENSIONS.BANNER_DESKTOP,
+            MEDIA_DIMENSIONS.BANNER_TABLET,
+            MEDIA_DIMENSIONS.BANNER_MOBILE,
             {
                 name: 'productDetailBanner',
                 width: 1200,
@@ -55,11 +45,6 @@ export const Media: CollectionConfig = {
                 height: 449,
             },
             {
-                name: 'assets400x400',
-                width: 400,
-                height: 400,
-            },
-            {
                 name: 'productMarquee',
                 width: 550,
                 height: 413,
@@ -67,7 +52,7 @@ export const Media: CollectionConfig = {
             {
                 name: 'productMarqueeMobile',
                 width: 250,
-                height: 333,
+                height: 187,
             },
             {
                 name: 'productListingThumbnail',
@@ -75,22 +60,7 @@ export const Media: CollectionConfig = {
                 height: 619,
             },
             {
-                name: 'storyMediaDesktop',
-                width: 550,
-                height: 733,
-            },
-            {
-                name: 'storyMediaMobile',
-                width: 600,
-                height: 400,
-            },
-            {
-                name: 'mediaDividerTablet',
-                width: 1000,
-                height: 600,
-            },
-            {
-                name: 'mediaDividerMobile',
+                name: 'productListingThumbnailMobile',
                 width: 600,
                 height: 600,
             },
