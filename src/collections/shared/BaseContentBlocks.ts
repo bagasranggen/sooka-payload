@@ -1,6 +1,7 @@
 import { Field, BlocksField } from 'payload';
 import {
     ContentBlockCallout,
+    ContentBlockDualPanel,
     ContentBlockGallery,
     ContentBlockHeading,
     ContentBlockMarquee,
@@ -12,6 +13,7 @@ export const BaseContentBlocks = (props?: Pick<BlocksField, 'name'>): Field => (
     name: props?.name ?? 'contentBlocks',
     blocks: [
         ContentBlockCallout,
+        ContentBlockDualPanel,
         ContentBlockGallery,
         ContentBlockHeading,
         ContentBlockMarquee,
