@@ -549,6 +549,38 @@ export interface MediaGallery {
       filesize?: number | null;
       filename?: string | null;
     };
+    media950x594?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    media950x975?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    mediaSquare?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    media4x3?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
   };
 }
 /**
@@ -566,6 +598,7 @@ export interface Page {
   contentBlocks?:
     | (
         | ContentBlockCallout
+        | ContentBlockDualPanel
         | ContentBlockGallery
         | ContentBlockHeading
         | ContentBlockMarquee
@@ -662,6 +695,39 @@ export interface CbSpacing {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentBlockDualPanel".
+ */
+export interface ContentBlockDualPanel {
+  contents?:
+    | {
+        type: 'text' | 'media';
+        description?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        media?: (number | null) | MediaGallery;
+        id?: string | null;
+      }[]
+    | null;
+  layout?: ('_2_3' | '_3_2' | '_1_1') | null;
+  cbSpacing?: CbSpacing;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'dualPanel';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ContentBlockGallery".
  */
 export interface ContentBlockGallery {
@@ -677,7 +743,21 @@ export interface ContentBlockGallery {
  */
 export interface ContentBlockHeading {
   title?: string | null;
-  description?: string | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   headingLevel?: ('1' | '2' | '3' | '4' | '5') | null;
   cbSpacing?: CbSpacing;
   id?: string | null;
@@ -1076,6 +1156,46 @@ export interface MediaGallerySelect<T extends boolean = true> {
               filesize?: T;
               filename?: T;
             };
+        media950x594?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        media950x975?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        mediaSquare?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        media4x3?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
       };
 }
 /**
@@ -1309,6 +1429,7 @@ export interface PagesSelect<T extends boolean = true> {
     | T
     | {
         callout?: T | ContentBlockCalloutSelect<T>;
+        dualPanel?: T | ContentBlockDualPanelSelect<T>;
         gallery?: T | ContentBlockGallerySelect<T>;
         heading?: T | ContentBlockHeadingSelect<T>;
         marquee?: T | ContentBlockMarqueeSelect<T>;
@@ -1349,6 +1470,24 @@ export interface LinkSelect<T extends boolean = true> {
 export interface CbSpacingSelect<T extends boolean = true> {
   marginTop?: T;
   marginBottom?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentBlockDualPanel_select".
+ */
+export interface ContentBlockDualPanelSelect<T extends boolean = true> {
+  contents?:
+    | T
+    | {
+        type?: T;
+        description?: T;
+        media?: T;
+        id?: T;
+      };
+  layout?: T;
+  cbSpacing?: T | CbSpacingSelect<T>;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
