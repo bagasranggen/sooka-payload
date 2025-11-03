@@ -1,11 +1,20 @@
-import { CollectionConfig } from 'payload';
+import type { CollectionConfig } from 'payload';
 import { BasePageTab, BaseContentBlocks } from '@/collections/shared';
+import { revalidatePage } from '@/libs/utils';
 
 export const Pages: CollectionConfig = {
     slug: 'pages',
     admin: {
         useAsTitle: 'title',
         group: 'Content',
+    },
+    hooks: {
+        afterChange: [
+            async ({ doc }) => {
+                await revalidatePage({ path: '/', layout: 'layout' });
+                await revalidatePage({ path: `/${doc.uri}` });
+            },
+        ],
     },
     fields: [
         {
