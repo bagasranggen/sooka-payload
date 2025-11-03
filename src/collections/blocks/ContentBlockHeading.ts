@@ -17,7 +17,7 @@ export const ContentBlockHeading: Block = {
                             name: 'title',
                         },
                         {
-                            type: 'textarea',
+                            type: 'richText',
                             name: 'description',
                         },
                     ],
