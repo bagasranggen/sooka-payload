@@ -10,6 +10,8 @@ import { buildConfig } from 'payload';
 import { fileURLToPath } from 'url';
 import sharp from 'sharp';
 
+import { BaseS3Collection } from '@/collections/shared';
+
 import { AddOns } from '@/collections/AddOns';
 import { Categories } from '@/collections/Categories';
 import { Pages } from '@/collections/Pages';
@@ -19,10 +21,14 @@ import { Testimonials } from '@/collections/Testimonials';
 import { Tokens } from '@/collections/Tokens';
 import { Users } from '@/collections/Users';
 
-import { MediaAddon } from '@/collections/MediaAddon';
-import { MediaGallery } from '@/collections/MediaGallery';
-import { MediaGlobal } from '@/collections/MediaGlobal';
-import { MediaProduct } from '@/collections/MediaProduct';
+import {
+    MediaAddon,
+    MediaDualPanel,
+    MediaGallery,
+    MediaGlobal,
+    MediaMarquee,
+    MediaProduct,
+} from '@/collections/assets';
 
 import { Navigation } from '@/globals/Navigation';
 import { Homepage } from '@/globals/Homepage';
@@ -42,8 +48,10 @@ export default buildConfig({
         AddOns,
         Categories,
         MediaAddon,
+        MediaDualPanel,
         MediaGallery,
         MediaGlobal,
+        MediaMarquee,
         MediaProduct,
         Pages,
         Products,
@@ -69,34 +77,12 @@ export default buildConfig({
         // storage-adapter-placeholder
         s3Storage({
             collections: {
-                mediaAddon: {
-                    prefix: 'mediaAddon',
-                    disablePayloadAccessControl: true,
-                    generateFileURL: (args) => {
-                        return `${process.env.S3_MEDIA_URI}/${args.prefix}/${args.filename}`;
-                    },
-                },
-                mediaGlobal: {
-                    prefix: 'mediaGlobal',
-                    disablePayloadAccessControl: true,
-                    generateFileURL: (args) => {
-                        return `${process.env.S3_MEDIA_URI}/${args.prefix}/${args.filename}`;
-                    },
-                },
-                mediaGallery: {
-                    prefix: 'mediaGallery',
-                    disablePayloadAccessControl: true,
-                    generateFileURL: (args) => {
-                        return `${process.env.S3_MEDIA_URI}/${args.prefix}/${args.filename}`;
-                    },
-                },
-                mediaProduct: {
-                    prefix: 'mediaProduct',
-                    disablePayloadAccessControl: true,
-                    generateFileURL: (args) => {
-                        return `${process.env.S3_MEDIA_URI}/${args.prefix}/${args.filename}`;
-                    },
-                },
+                ...BaseS3Collection({ prefix: 'mediaAddon' }),
+                ...BaseS3Collection({ prefix: 'mediaDualPanel' }),
+                ...BaseS3Collection({ prefix: 'mediaGallery' }),
+                ...BaseS3Collection({ prefix: 'mediaGlobal' }),
+                ...BaseS3Collection({ prefix: 'mediaMarquee' }),
+                ...BaseS3Collection({ prefix: 'mediaProduct' }),
             },
             bucket: process.env.S3_BUCKET || '',
             config: {
@@ -114,7 +100,14 @@ export default buildConfig({
             interfaceName: 'Meta',
             collections: ['products', 'categories'],
             globals: ['homepage'],
-            uploadsCollection: ['mediaAddon', 'mediaGlobal', 'mediaProduct', 'mediaGallery'],
+            uploadsCollection: [
+                'mediaAddon',
+                'mediaDualPanel',
+                'mediaGallery',
+                'mediaGlobal',
+                'mediaMarquee',
+                'mediaProduct',
+            ],
             generateTitle: ({ doc }) => `${doc.title} - Sooka Baked Goods`,
             generateDescription: ({ doc }) => doc.excerpt,
         }),

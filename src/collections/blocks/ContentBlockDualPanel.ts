@@ -51,7 +51,7 @@ export const ContentBlockDualPanel: Block = {
                                         {
                                             type: 'upload',
                                             name: 'media',
-                                            relationTo: 'mediaGallery',
+                                            relationTo: 'mediaDualPanel',
                                         },
                                     ],
                                     admin: {
