@@ -82,8 +82,10 @@ export interface Config {
     addons: Addon;
     categories: Category;
     mediaAddon: MediaAddon;
+    mediaDualPanel: MediaDualPanel;
     mediaGallery: MediaGallery;
     mediaGlobal: MediaGlobal;
+    mediaMarquee: MediaMarquee;
     mediaProduct: MediaProduct;
     pages: Page;
     products: Product;
@@ -100,8 +102,10 @@ export interface Config {
     addons: AddonsSelect<false> | AddonsSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     mediaAddon: MediaAddonSelect<false> | MediaAddonSelect<true>;
+    mediaDualPanel: MediaDualPanelSelect<false> | MediaDualPanelSelect<true>;
     mediaGallery: MediaGallerySelect<false> | MediaGallerySelect<true>;
     mediaGlobal: MediaGlobalSelect<false> | MediaGlobalSelect<true>;
+    mediaMarquee: MediaMarqueeSelect<false> | MediaMarqueeSelect<true>;
     mediaProduct: MediaProductSelect<false> | MediaProductSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
@@ -281,17 +285,141 @@ export interface Meta {
         value: number | MediaAddon;
       } | null)
     | ({
-        relationTo: 'mediaGlobal';
-        value: number | MediaGlobal;
-      } | null)
-    | ({
-        relationTo: 'mediaProduct';
-        value: number | MediaProduct;
+        relationTo: 'mediaDualPanel';
+        value: number | MediaDualPanel;
       } | null)
     | ({
         relationTo: 'mediaGallery';
         value: number | MediaGallery;
+      } | null)
+    | ({
+        relationTo: 'mediaGlobal';
+        value: number | MediaGlobal;
+      } | null)
+    | ({
+        relationTo: 'mediaMarquee';
+        value: number | MediaMarquee;
+      } | null)
+    | ({
+        relationTo: 'mediaProduct';
+        value: number | MediaProduct;
       } | null);
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "mediaDualPanel".
+ */
+export interface MediaDualPanel {
+  id: number;
+  alt: string;
+  prefix?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+  sizes?: {
+    media950x594?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    media950x975?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    mediaSquare?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    media4x3?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "mediaGallery".
+ */
+export interface MediaGallery {
+  id: number;
+  alt: string;
+  prefix?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+  sizes?: {
+    collage1x1?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    collage4x3?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    collage3x4?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    collage3x2?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    collage2x3?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -362,6 +490,44 @@ export interface MediaGlobal {
       filename?: string | null;
     };
     mediaDividerMobile?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "mediaMarquee".
+ */
+export interface MediaMarquee {
+  id: number;
+  alt: string;
+  prefix?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+  sizes?: {
+    marquee?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    marqueeMobile?: {
       url?: string | null;
       width?: number | null;
       height?: number | null;
@@ -464,116 +630,6 @@ export interface MediaProduct {
       filename?: string | null;
     };
     productListingThumbnailMobile?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-  };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "mediaGallery".
- */
-export interface MediaGallery {
-  id: number;
-  alt: string;
-  prefix?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
-  sizes?: {
-    marquee?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    marqueeMobile?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    collage1x1?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    collage4x3?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    collage3x4?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    collage3x2?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    collage2x3?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    media950x594?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    media950x975?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    mediaSquare?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    media4x3?: {
       url?: string | null;
       width?: number | null;
       height?: number | null;
@@ -716,7 +772,7 @@ export interface ContentBlockDualPanel {
           };
           [k: string]: unknown;
         } | null;
-        media?: (number | null) | MediaGallery;
+        media?: (number | null) | MediaDualPanel;
         id?: string | null;
       }[]
     | null;
@@ -769,7 +825,7 @@ export interface ContentBlockHeading {
  * via the `definition` "ContentBlockMarquee".
  */
 export interface ContentBlockMarquee {
-  media?: (number | MediaGallery)[] | null;
+  media?: (number | MediaMarquee)[] | null;
   cbSpacing?: CbSpacing;
   id?: string | null;
   blockName?: string | null;
@@ -890,12 +946,20 @@ export interface PayloadLockedDocument {
         value: number | MediaAddon;
       } | null)
     | ({
+        relationTo: 'mediaDualPanel';
+        value: number | MediaDualPanel;
+      } | null)
+    | ({
         relationTo: 'mediaGallery';
         value: number | MediaGallery;
       } | null)
     | ({
         relationTo: 'mediaGlobal';
         value: number | MediaGlobal;
+      } | null)
+    | ({
+        relationTo: 'mediaMarquee';
+        value: number | MediaMarquee;
       } | null)
     | ({
         relationTo: 'mediaProduct';
@@ -1067,6 +1131,69 @@ export interface MediaAddonSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "mediaDualPanel_select".
+ */
+export interface MediaDualPanelSelect<T extends boolean = true> {
+  alt?: T;
+  prefix?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+  sizes?:
+    | T
+    | {
+        media950x594?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        media950x975?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        mediaSquare?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        media4x3?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "mediaGallery_select".
  */
 export interface MediaGallerySelect<T extends boolean = true> {
@@ -1086,26 +1213,6 @@ export interface MediaGallerySelect<T extends boolean = true> {
   sizes?:
     | T
     | {
-        marquee?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        marqueeMobile?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
         collage1x1?:
           | T
           | {
@@ -1147,46 +1254,6 @@ export interface MediaGallerySelect<T extends boolean = true> {
               filename?: T;
             };
         collage2x3?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        media950x594?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        media950x975?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        mediaSquare?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        media4x3?:
           | T
           | {
               url?: T;
@@ -1280,6 +1347,49 @@ export interface MediaGlobalSelect<T extends boolean = true> {
               filename?: T;
             };
         mediaDividerMobile?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "mediaMarquee_select".
+ */
+export interface MediaMarqueeSelect<T extends boolean = true> {
+  alt?: T;
+  prefix?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+  sizes?:
+    | T
+    | {
+        marquee?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        marqueeMobile?:
           | T
           | {
               url?: T;
