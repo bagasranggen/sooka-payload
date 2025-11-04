@@ -14,7 +14,7 @@ export const ContentBlockMarquee: Block = {
                         {
                             type: 'upload',
                             name: 'media',
-                            relationTo: 'mediaGallery',
+                            relationTo: 'mediaMarquee',
                             hasMany: true,
                             maxRows: 4,
                         },

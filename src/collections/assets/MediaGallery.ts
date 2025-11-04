@@ -1,6 +1,5 @@
 import type { CollectionConfig } from 'payload';
-
-import { MEDIA_DIMENSIONS } from '@/collections/shared/MediaDimensions';
+import { BaseAssetReadAccess } from '@/collections/shared';
 
 export const MediaGallery: CollectionConfig = {
     slug: 'mediaGallery',
@@ -8,11 +7,7 @@ export const MediaGallery: CollectionConfig = {
         group: 'Assets',
     },
     access: {
-        read: ({ req: { headers } }) => {
-            const hostnames = [process.env.WEB_HOSTNAME, process.env.CMS_HOSTNAME].filter((item) => Boolean(item));
-            const forwardedHostname = headers?.get('x-forwarded-host')?.split(':').shift();
-            return hostnames.includes(forwardedHostname);
-        },
+        read: (arg) => BaseAssetReadAccess(arg),
     },
     fields: [
         {
@@ -26,8 +21,6 @@ export const MediaGallery: CollectionConfig = {
         skipSafeFetch: [{ hostname: process.env.CMS_HOSTNAME || '' }],
         disableLocalStorage: true,
         imageSizes: [
-            MEDIA_DIMENSIONS.MARQUEE,
-            MEDIA_DIMENSIONS.MARQUEE_MOBILE,
             {
                 name: 'collage1x1',
                 width: 600,
@@ -52,26 +45,6 @@ export const MediaGallery: CollectionConfig = {
                 name: 'collage2x3',
                 width: 600,
                 height: 900,
-            },
-            {
-                name: 'media950x594',
-                width: 950,
-                height: 594,
-            },
-            {
-                name: 'media950x975',
-                width: 950,
-                height: 975,
-            },
-            {
-                name: 'mediaSquare',
-                width: 750,
-                height: 750,
-            },
-            {
-                name: 'media4x3',
-                width: 600,
-                height: 450,
             },
         ],
     },

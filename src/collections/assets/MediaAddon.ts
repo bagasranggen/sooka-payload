@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload';
+import { BaseAssetReadAccess } from '@/collections/shared';
 
 export const MediaAddon: CollectionConfig = {
     slug: 'mediaAddon',
@@ -6,11 +7,7 @@ export const MediaAddon: CollectionConfig = {
         group: 'Assets',
     },
     access: {
-        read: ({ req: { headers } }) => {
-            const hostnames = [process.env.WEB_HOSTNAME, process.env.CMS_HOSTNAME].filter((item) => Boolean(item));
-            const forwardedHostname = headers?.get('x-forwarded-host')?.split(':').shift();
-            return hostnames.includes(forwardedHostname);
-        },
+        read: (arg) => BaseAssetReadAccess(arg),
     },
     fields: [
         {
