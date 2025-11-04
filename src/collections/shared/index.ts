@@ -1,3 +1,4 @@
+export * from './BaseAssetReadAccess';
 export * from './BaseContentBlocks';
 export * from './BaseFlavour';
 export * from './BaseLink';
