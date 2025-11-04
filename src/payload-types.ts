@@ -236,6 +236,7 @@ export interface MediaAddon {
 export interface Price {
   normalPrice: number;
   salePrice?: number | null;
+  isFree?: boolean | null;
   note?: string | null;
 }
 /**
@@ -1069,6 +1070,7 @@ export interface AddonsSelect<T extends boolean = true> {
 export interface PriceSelect<T extends boolean = true> {
   normalPrice?: T;
   salePrice?: T;
+  isFree?: T;
   note?: T;
 }
 /**
