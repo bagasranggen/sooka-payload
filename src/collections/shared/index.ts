@@ -3,6 +3,7 @@ export * from './BaseFlavour';
 export * from './BaseLink';
 export * from './BasePageTab';
 export * from './BasePrice';
+export * from './BaseS3Collection';
 export * from './BaseStatus';
 export * from './BaseTarget';
 export * from './BaseTitle';
