@@ -236,6 +236,7 @@ export interface MediaAddon {
 export interface Price {
   normalPrice: number;
   salePrice?: number | null;
+  isFree?: boolean | null;
   note?: string | null;
 }
 /**
@@ -681,13 +682,15 @@ export interface ContentBlockCallout {
  * via the `definition` "Link".
  */
 export interface Link {
-  source?: ('products' | 'categories' | 'pages' | 'mail' | 'custom') | null;
+  source?: ('categories' | 'custom' | 'mail' | 'products' | 'pages' | 'whatsapp') | null;
   product?: (number | null) | Product;
   page?: (number | null) | Page;
   category?: (number | null) | Category;
   custom?: string | null;
   mail?: string | null;
+  whatsappNumber?: string | null;
   target?: boolean | null;
+  whatsappMessage?: string | null;
   label?: string | null;
 }
 /**
@@ -1069,6 +1072,7 @@ export interface AddonsSelect<T extends boolean = true> {
 export interface PriceSelect<T extends boolean = true> {
   normalPrice?: T;
   salePrice?: T;
+  isFree?: T;
   note?: T;
 }
 /**
@@ -1570,7 +1574,9 @@ export interface LinkSelect<T extends boolean = true> {
   category?: T;
   custom?: T;
   mail?: T;
+  whatsappNumber?: T;
   target?: T;
+  whatsappMessage?: T;
   label?: T;
 }
 /**

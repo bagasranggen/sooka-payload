@@ -35,6 +35,7 @@ export const AddOns: CollectionConfig = {
                             name: 'prices',
                             fields: BasePrice,
                             required: true,
+                            maxRows: 1,
                         },
                     ],
                 },
