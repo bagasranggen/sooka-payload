@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload';
-import { BasePageTab, BasePrice } from '@/collections/shared';
+
+import { BaseFlavour, BasePageTab, BasePrice } from '@/collections/shared';
 import { revalidatePage } from '@/libs/utils';
 
 export const Products: CollectionConfig = {
@@ -23,6 +24,7 @@ export const Products: CollectionConfig = {
             },
         ],
     },
+    defaultSort: 'slug',
     fields: [
         {
             type: 'tabs',
@@ -54,13 +56,13 @@ export const Products: CollectionConfig = {
                                 {
                                     type: 'upload',
                                     name: 'thumbnail',
-                                    relationTo: 'media',
+                                    relationTo: 'mediaProduct',
                                     admin: { width: '50%' },
                                 },
                                 {
                                     type: 'upload',
                                     name: 'thumbnailHover',
-                                    relationTo: 'media',
+                                    relationTo: 'mediaProduct',
                                     admin: { width: '50%' },
                                 },
                             ],
@@ -68,7 +70,7 @@ export const Products: CollectionConfig = {
                         {
                             type: 'upload',
                             name: 'marquee',
-                            relationTo: 'media',
+                            relationTo: 'mediaProduct',
                             hasMany: true,
                         },
                     ],
@@ -90,6 +92,36 @@ export const Products: CollectionConfig = {
                             name: 'category',
                             relationTo: 'categories',
                             required: true,
+                        },
+                        {
+                            type: 'group',
+                            name: 'flavour',
+                            interfaceName: 'Flavour',
+                            fields: [
+                                {
+                                    type: 'row',
+                                    fields: [
+                                        BaseFlavour({
+                                            name: 'freshCreamy',
+                                            label: 'Fresh - Creamy',
+                                            required: true,
+                                            admin: { width: '33%' },
+                                        }),
+                                        BaseFlavour({
+                                            name: 'custardySpongy',
+                                            label: 'Custardy - Spongy',
+                                            required: true,
+                                            admin: { width: '33%' },
+                                        }),
+                                        BaseFlavour({
+                                            name: 'tangySweet',
+                                            label: 'Tangy - Sweet',
+                                            required: true,
+                                            admin: { width: '33%' },
+                                        }),
+                                    ],
+                                },
+                            ],
                         },
                         {
                             type: 'array',

@@ -16,7 +16,6 @@ export const Footer: GlobalConfig = {
                         {
                             type: 'textarea',
                             name: 'address',
-                            required: true,
                         },
                         {
                             type: 'text',

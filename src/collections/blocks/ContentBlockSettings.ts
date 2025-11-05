@@ -18,6 +18,7 @@ export const ContentBlockSettings: Field[] = [
                             value: `${item + 1}`,
                             label: `${item + 1}`,
                         })),
+                        admin: { width: '50%' },
                     },
                     {
                         type: 'select',
@@ -26,6 +27,7 @@ export const ContentBlockSettings: Field[] = [
                             value: `${item + 1}`,
                             label: `${item + 1}`,
                         })),
+                        admin: { width: '50%' },
                     },
                 ],
             },

@@ -15,14 +15,29 @@ export const BasePrice: Field[] = [
                         label: 'Price',
                         required: true,
                         admin: {
-                            width: '50%',
+                            width: '45%',
                         },
                     },
                     {
                         type: 'number',
                         name: 'salePrice',
                         admin: {
-                            width: '50%',
+                            width: '45%',
+                        },
+                    },
+                    {
+                        type: 'checkbox',
+                        name: 'isFree',
+                        label: 'Free',
+                        admin: {
+                            width: '10%',
+                            style: {
+                                display: 'flex',
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                height: '40px',
+                                marginTop: 'auto',
+                            },
                         },
                     },
                 ],
