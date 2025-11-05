@@ -24,6 +24,7 @@ export const Products: CollectionConfig = {
             },
         ],
     },
+    defaultSort: 'slug',
     fields: [
         {
             type: 'tabs',
