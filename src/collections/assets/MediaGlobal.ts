@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload';
 
 import { MEDIA_DIMENSIONS } from '@/collections/shared/MediaDimensions';
-import { BaseAssetReadAccess } from '@/collections/shared';
+import { BaseAsset, BaseAssetReadAccess } from '@/collections/shared';
 
 export const MediaGlobal: CollectionConfig = {
     slug: 'mediaGlobal',
@@ -11,13 +11,7 @@ export const MediaGlobal: CollectionConfig = {
     access: {
         read: (arg) => BaseAssetReadAccess(arg),
     },
-    fields: [
-        {
-            name: 'alt',
-            type: 'text',
-            required: true,
-        },
-    ],
+    fields: BaseAsset({ mobileRelation: 'mediaGallery' }),
     upload: {
         // staticDir: 'media',
         skipSafeFetch: [{ hostname: process.env.CMS_HOSTNAME || '' }],
