@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload';
-import { BaseAssetReadAccess } from '@/collections/shared';
+import { BaseAsset, BaseAssetReadAccess } from '@/collections/shared';
 
 export const MediaAddon: CollectionConfig = {
     slug: 'mediaAddon',
@@ -9,13 +9,7 @@ export const MediaAddon: CollectionConfig = {
     access: {
         read: (arg) => BaseAssetReadAccess(arg),
     },
-    fields: [
-        {
-            name: 'alt',
-            type: 'text',
-            required: true,
-        },
-    ],
+    fields: BaseAsset({ mobileRelation: 'mediaAddon' }),
     upload: {
         // staticDir: 'media',
         skipSafeFetch: [{ hostname: process.env.CMS_HOSTNAME || '' }],

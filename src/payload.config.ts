@@ -98,16 +98,8 @@ export default buildConfig({
         seoPlugin({
             tabbedUI: true,
             interfaceName: 'Meta',
-            collections: ['products', 'categories'],
+            collections: ['products', 'categories', 'pages'],
             globals: ['homepage'],
-            uploadsCollection: [
-                'mediaAddon',
-                'mediaDualPanel',
-                'mediaGallery',
-                'mediaGlobal',
-                'mediaMarquee',
-                'mediaProduct',
-            ],
             generateTitle: ({ doc }) => `${doc.title} - Sooka Baked Goods`,
             generateDescription: ({ doc }) => doc.excerpt,
         }),
