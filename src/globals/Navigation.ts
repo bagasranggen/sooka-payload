@@ -1,11 +1,19 @@
 import { GlobalConfig } from 'payload';
 import { BaseLink, BaseStatus } from '@/collections/shared';
+import { revalidatePage } from '@/libs/utils';
 
 export const Navigation: GlobalConfig = {
     slug: 'navigation',
     label: 'Header',
     admin: {
         group: 'Navigation',
+    },
+    hooks: {
+        afterChange: [
+            async () => {
+                await revalidatePage({ path: '/', layout: 'layout' });
+            },
+        ],
     },
     fields: [
         {

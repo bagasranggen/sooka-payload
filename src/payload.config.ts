@@ -10,9 +10,10 @@ import { buildConfig } from 'payload';
 import { fileURLToPath } from 'url';
 import sharp from 'sharp';
 
+import { BaseS3Collection } from '@/collections/shared';
+
 import { AddOns } from '@/collections/AddOns';
 import { Categories } from '@/collections/Categories';
-import { Media } from '@/collections/Media';
 import { Pages } from '@/collections/Pages';
 import { Products } from '@/collections/Products';
 import { Tags } from '@/collections/Tags';
@@ -20,8 +21,18 @@ import { Testimonials } from '@/collections/Testimonials';
 import { Tokens } from '@/collections/Tokens';
 import { Users } from '@/collections/Users';
 
+import {
+    MediaAddon,
+    MediaDualPanel,
+    MediaGallery,
+    MediaGlobal,
+    MediaMarquee,
+    MediaProduct,
+} from '@/collections/assets';
+
 import { Navigation } from '@/globals/Navigation';
 import { Homepage } from '@/globals/Homepage';
+import { Footer } from '@/globals/Footer';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -33,8 +44,23 @@ export default buildConfig({
             baseDir: path.resolve(dirname),
         },
     },
-    collections: [AddOns, Categories, Media, Pages, Products, Tags, Testimonials, Tokens, Users],
-    globals: [Navigation, Homepage],
+    collections: [
+        AddOns,
+        Categories,
+        MediaAddon,
+        MediaDualPanel,
+        MediaGallery,
+        MediaGlobal,
+        MediaMarquee,
+        MediaProduct,
+        Pages,
+        Products,
+        Tags,
+        Testimonials,
+        Tokens,
+        Users,
+    ],
+    globals: [Navigation, Homepage, Footer],
     editor: lexicalEditor(),
     secret: process.env.PAYLOAD_SECRET || '',
     typescript: {
@@ -51,9 +77,12 @@ export default buildConfig({
         // storage-adapter-placeholder
         s3Storage({
             collections: {
-                media: {
-                    prefix: 'media',
-                },
+                ...BaseS3Collection({ prefix: 'mediaAddon' }),
+                ...BaseS3Collection({ prefix: 'mediaDualPanel' }),
+                ...BaseS3Collection({ prefix: 'mediaGallery' }),
+                ...BaseS3Collection({ prefix: 'mediaGlobal' }),
+                ...BaseS3Collection({ prefix: 'mediaMarquee' }),
+                ...BaseS3Collection({ prefix: 'mediaProduct' }),
             },
             bucket: process.env.S3_BUCKET || '',
             config: {
@@ -68,8 +97,9 @@ export default buildConfig({
         }),
         seoPlugin({
             tabbedUI: true,
-            collections: ['products', 'categories'],
-            uploadsCollection: 'media',
+            interfaceName: 'Meta',
+            collections: ['products', 'categories', 'pages'],
+            globals: ['homepage'],
             generateTitle: ({ doc }) => `${doc.title} - Sooka Baked Goods`,
             generateDescription: ({ doc }) => doc.excerpt,
         }),
