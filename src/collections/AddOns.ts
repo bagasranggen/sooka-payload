@@ -22,7 +22,7 @@ export const AddOns: CollectionConfig = {
                         {
                             type: 'upload',
                             name: 'thumbnail',
-                            relationTo: 'media',
+                            relationTo: 'mediaAddon',
                             required: true,
                         },
                     ],
@@ -34,6 +34,8 @@ export const AddOns: CollectionConfig = {
                             type: 'array',
                             name: 'prices',
                             fields: BasePrice,
+                            required: true,
+                            maxRows: 1,
                         },
                     ],
                 },
