@@ -719,6 +719,7 @@ export interface Product {
  * via the `definition` "Flavour".
  */
 export interface Flavour {
+  showFlavour?: boolean | null;
   freshCreamy: '_0' | '_10' | '_20' | '_30' | '_40' | '_50' | '_60' | '_70' | '_80' | '_90' | '_100';
   custardySpongy: '_0' | '_10' | '_20' | '_30' | '_40' | '_50' | '_60' | '_70' | '_80' | '_90' | '_100';
   tangySweet: '_0' | '_10' | '_20' | '_30' | '_40' | '_50' | '_60' | '_70' | '_80' | '_90' | '_100';
@@ -1667,6 +1668,7 @@ export interface ProductsSelect<T extends boolean = true> {
  * via the `definition` "Flavour_select".
  */
 export interface FlavourSelect<T extends boolean = true> {
+  showFlavour?: T;
   freshCreamy?: T;
   custardySpongy?: T;
   tangySweet?: T;

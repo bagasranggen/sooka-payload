@@ -99,6 +99,11 @@ export const Products: CollectionConfig = {
                             interfaceName: 'Flavour',
                             fields: [
                                 {
+                                    type: 'checkbox',
+                                    name: 'showFlavour',
+                                    defaultValue: true,
+                                },
+                                {
                                     type: 'row',
                                     fields: [
                                         BaseFlavour({
@@ -120,6 +125,9 @@ export const Products: CollectionConfig = {
                                             admin: { width: '33%' },
                                         }),
                                     ],
+                                    admin: {
+                                        condition: (data, siblingData) => siblingData?.showFlavour,
+                                    },
                                 },
                             ],
                         },
