@@ -81,32 +81,62 @@ export const Products: CollectionConfig = {
                     label: 'Content',
                     fields: [
                         {
-                            type: 'row',
+                            type: 'group',
+                            label: 'Availability',
                             fields: [
                                 {
-                                    type: 'textarea',
-                                    name: 'bannerTitle',
-                                },
-                                {
-                                    type: 'select',
-                                    name: 'availability',
-                                    defaultValue: 'available',
-                                    required: true,
-                                    options: [
+                                    type: 'row',
+                                    fields: [
                                         {
-                                            label: 'Available',
-                                            value: 'available',
+                                            type: 'select',
+                                            name: 'availability',
+                                            label: false,
+                                            defaultValue: 'available',
+                                            required: true,
+                                            options: [
+                                                {
+                                                    label: 'Available',
+                                                    value: 'available',
+                                                },
+                                                {
+                                                    label: 'Unavailable',
+                                                    value: 'unavailable',
+                                                },
+                                            ],
+                                            admin: {
+                                                width: '20%',
+                                            },
                                         },
                                         {
-                                            label: 'Unavailable',
-                                            value: 'unavailable',
+                                            type: 'relationship',
+                                            name: 'unavailableLabel',
+                                            label: false,
+                                            relationTo: 'tags',
+                                            admin: {
+                                                placeholder: 'Select a label',
+                                                condition: (data, siblingData) => {
+                                                    return siblingData?.availability === 'unavailable';
+                                                },
+                                            },
                                         },
                                     ],
+                                },
+                                {
+                                    type: 'text',
+                                    name: 'unavailableCustomLabel',
+                                    label: 'Custom Label',
+                                    defaultValue: 'Currently Unavailable',
                                     admin: {
-                                        width: '20%',
+                                        condition: (data, siblingData) => {
+                                            return siblingData?.availability === 'unavailable';
+                                        },
                                     },
                                 },
                             ],
+                        },
+                        {
+                            type: 'textarea',
+                            name: 'bannerTitle',
                         },
                         {
                             type: 'richText',
