@@ -678,6 +678,7 @@ export interface Link {
  */
 export interface Product {
   id: number;
+  _order?: string | null;
   typeHandle?: string | null;
   entryStatus?: ('disabled' | 'live') | null;
   title: string;
@@ -1639,6 +1640,7 @@ export interface ContentBlockRelatedProductsSelect<T extends boolean = true> {
  * via the `definition` "products_select".
  */
 export interface ProductsSelect<T extends boolean = true> {
+  _order?: T;
   typeHandle?: T;
   entryStatus?: T;
   title?: T;

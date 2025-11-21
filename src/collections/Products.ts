@@ -8,6 +8,7 @@ export const Products: CollectionConfig = {
     admin: {
         useAsTitle: 'title',
         group: 'Content',
+        groupBy: true,
     },
     hooks: {
         afterChange: [
@@ -24,7 +25,8 @@ export const Products: CollectionConfig = {
             },
         ],
     },
-    defaultSort: 'slug',
+    defaultSort: 'category',
+    orderable: true,
     fields: [
         {
             type: 'tabs',
