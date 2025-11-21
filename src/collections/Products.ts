@@ -81,8 +81,32 @@ export const Products: CollectionConfig = {
                     label: 'Content',
                     fields: [
                         {
-                            type: 'textarea',
-                            name: 'bannerTitle',
+                            type: 'row',
+                            fields: [
+                                {
+                                    type: 'textarea',
+                                    name: 'bannerTitle',
+                                },
+                                {
+                                    type: 'select',
+                                    name: 'availability',
+                                    defaultValue: 'available',
+                                    required: true,
+                                    options: [
+                                        {
+                                            label: 'Available',
+                                            value: 'available',
+                                        },
+                                        {
+                                            label: 'Unavailable',
+                                            value: 'unavailable',
+                                        },
+                                    ],
+                                    admin: {
+                                        width: '20%',
+                                    },
+                                },
+                            ],
                         },
                         {
                             type: 'richText',
