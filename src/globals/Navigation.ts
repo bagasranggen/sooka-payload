@@ -25,6 +25,12 @@ export const Navigation: GlobalConfig = {
                     fields: [BaseStatus({ withStatus: true, width: '15%' })],
                 },
                 BaseLink(),
+                {
+                    type: 'array',
+                    name: 'children',
+                    label: 'Sub Menu',
+                    fields: [BaseLink()],
+                },
             ],
         },
     ],
