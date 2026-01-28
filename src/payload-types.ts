@@ -1789,6 +1789,7 @@ export interface Navigation {
         link?: Link;
         children?:
           | {
+              entryStatus?: ('disabled' | 'live') | null;
               link?: Link;
               id?: string | null;
             }[]
@@ -1940,6 +1941,7 @@ export interface NavigationSelect<T extends boolean = true> {
         children?:
           | T
           | {
+              entryStatus?: T;
               link?: T | LinkSelect<T>;
               id?: T;
             };

@@ -29,7 +29,13 @@ export const Navigation: GlobalConfig = {
                     type: 'array',
                     name: 'children',
                     label: 'Sub Menu',
-                    fields: [BaseLink()],
+                    fields: [
+                        {
+                            type: 'row',
+                            fields: [BaseStatus({ withStatus: true, width: '15%' })],
+                        },
+                        BaseLink(),
+                    ],
                 },
             ],
         },
