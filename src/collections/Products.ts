@@ -8,6 +8,7 @@ export const Products: CollectionConfig = {
     admin: {
         useAsTitle: 'title',
         group: 'Content',
+        groupBy: true,
     },
     hooks: {
         afterChange: [
@@ -24,7 +25,8 @@ export const Products: CollectionConfig = {
             },
         ],
     },
-    defaultSort: 'slug',
+    defaultSort: 'category',
+    orderable: true,
     fields: [
         {
             type: 'tabs',
@@ -79,6 +81,60 @@ export const Products: CollectionConfig = {
                     label: 'Content',
                     fields: [
                         {
+                            type: 'group',
+                            label: 'Availability',
+                            fields: [
+                                {
+                                    type: 'row',
+                                    fields: [
+                                        {
+                                            type: 'select',
+                                            name: 'availability',
+                                            label: false,
+                                            defaultValue: 'available',
+                                            required: true,
+                                            options: [
+                                                {
+                                                    label: 'Available',
+                                                    value: 'available',
+                                                },
+                                                {
+                                                    label: 'Unavailable',
+                                                    value: 'unavailable',
+                                                },
+                                            ],
+                                            admin: {
+                                                width: '20%',
+                                            },
+                                        },
+                                        {
+                                            type: 'relationship',
+                                            name: 'unavailableLabel',
+                                            label: false,
+                                            relationTo: 'tags',
+                                            admin: {
+                                                placeholder: 'Select a label',
+                                                condition: (data, siblingData) => {
+                                                    return siblingData?.availability === 'unavailable';
+                                                },
+                                            },
+                                        },
+                                    ],
+                                },
+                                {
+                                    type: 'text',
+                                    name: 'unavailableCustomLabel',
+                                    label: 'Custom Label',
+                                    defaultValue: 'Currently Unavailable',
+                                    admin: {
+                                        condition: (data, siblingData) => {
+                                            return siblingData?.availability === 'unavailable';
+                                        },
+                                    },
+                                },
+                            ],
+                        },
+                        {
                             type: 'textarea',
                             name: 'bannerTitle',
                         },
@@ -98,6 +154,11 @@ export const Products: CollectionConfig = {
                             name: 'flavour',
                             interfaceName: 'Flavour',
                             fields: [
+                                {
+                                    type: 'checkbox',
+                                    name: 'showFlavour',
+                                    defaultValue: true,
+                                },
                                 {
                                     type: 'row',
                                     fields: [
@@ -120,6 +181,9 @@ export const Products: CollectionConfig = {
                                             admin: { width: '33%' },
                                         }),
                                     ],
+                                    admin: {
+                                        condition: (data, siblingData) => siblingData?.showFlavour,
+                                    },
                                 },
                             ],
                         },
