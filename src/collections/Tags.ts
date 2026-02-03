@@ -15,6 +15,18 @@ export const Tags: CollectionConfig = {
                     typeHandle: 'typeSectionTagsEntry',
                     // withStatus: true,
                 }),
+                {
+                    label: 'Content',
+                    fields: [
+                        {
+                            type: 'textarea',
+                            name: 'badgeTitle',
+                            admin: {
+                                description: 'This will only shown on badge component',
+                            },
+                        },
+                    ],
+                },
             ],
         },
     ],

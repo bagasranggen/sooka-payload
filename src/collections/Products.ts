@@ -144,10 +144,27 @@ export const Products: CollectionConfig = {
                             required: true,
                         },
                         {
-                            type: 'relationship',
-                            name: 'category',
-                            relationTo: 'categories',
-                            required: true,
+                            type: 'row',
+                            fields: [
+                                {
+                                    type: 'relationship',
+                                    name: 'category',
+                                    relationTo: 'categories',
+                                    required: true,
+                                    admin: {
+                                        width: '50%',
+                                    },
+                                },
+                                {
+                                    type: 'relationship',
+                                    name: 'badge',
+                                    relationTo: 'tags',
+                                    admin: {
+                                        width: '50%',
+                                        description: 'Badge will only shown on product listing page',
+                                    },
+                                },
+                            ],
                         },
                         {
                             type: 'group',
