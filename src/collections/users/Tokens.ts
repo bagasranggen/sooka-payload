@@ -4,7 +4,7 @@ export const Tokens: CollectionConfig = {
     slug: 'tokens',
     admin: {
         useAsTitle: 'title',
-        group: 'User',
+        group: 'Users',
     },
     auth: {
         useAPIKey: true,
