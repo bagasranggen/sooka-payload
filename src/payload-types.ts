@@ -7,6 +7,17 @@
  */
 
 /**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SocialMedia".
+ */
+export type SocialMedia =
+  | {
+      icon?: Icon;
+      link?: Link;
+      id?: string | null;
+    }[]
+  | null;
+/**
  * Supported timezones in IANA format.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -113,10 +124,14 @@ export interface Config {
   };
   fallbackLocale: null;
   globals: {
+    navigation: Navigation;
     homepage: Homepage;
+    footer: Footer;
   };
   globalsSelect: {
+    navigation: NavigationSelect<false> | NavigationSelect<true>;
     homepage: HomepageSelect<false> | HomepageSelect<true>;
+    footer: FooterSelect<false> | FooterSelect<true>;
   };
   locale: null;
   widgets: {
@@ -666,10 +681,94 @@ export interface ContentBlocks {
  */
 export interface CbCallout {
   title?: string | null;
+  link?: Link;
   cbSpacing?: CbSpacing;
   id?: string | null;
   blockName?: string | null;
   blockType: 'callout';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Link".
+ */
+export interface Link {
+  source?: ('categories' | 'custom' | 'mail' | 'products' | 'pages' | 'whatsapp') | null;
+  product?: (number | null) | Product;
+  page?: (number | null) | Page;
+  category?: (number | null) | Category;
+  custom?: string | null;
+  mail?: string | null;
+  whatsappNumber?: string | null;
+  target?: boolean | null;
+  whatsappMessage?: string | null;
+  label?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products".
+ */
+export interface Product {
+  id: number;
+  _order?: string | null;
+  typeHandle: 'typeSectionProductIndex';
+  slug: string;
+  entryStatus: 'disabled' | 'live';
+  availability: 'available' | 'unavailable';
+  unavailableLabel?: (number | null) | Tag;
+  title: string;
+  url?: string | null;
+  uri?: string | null;
+  thumbnail?: (number | null) | MediaProduct;
+  thumbnailHover?: (number | null) | MediaProduct;
+  marquee?: (number | MediaProduct)[] | null;
+  bannerTitle?: string | null;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  category: number | Category;
+  /**
+   * Badge will only shown on product listing page
+   */
+  badge?: (number | null) | Tag;
+  flavour: Flavour;
+  prices: {
+    price: Price;
+    id?: string | null;
+  }[];
+  addons?: (number | Addon)[] | null;
+  meta?: Meta;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Flavour".
+ */
+export interface Flavour {
+  showFlavour?: boolean | null;
+  freshCreamy: '_0' | '_10' | '_20' | '_30' | '_40' | '_50' | '_60' | '_70' | '_80' | '_90' | '_100';
+  custardySpongy: '_0' | '_10' | '_20' | '_30' | '_40' | '_50' | '_60' | '_70' | '_80' | '_90' | '_100';
+  tangySweet: '_0' | '_10' | '_20' | '_30' | '_40' | '_50' | '_60' | '_70' | '_80' | '_90' | '_100';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Meta".
+ */
+export interface Meta {
+  title?: string | null;
+  description?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -711,20 +810,6 @@ export interface CbDualPanel {
   id?: string | null;
   blockName?: string | null;
   blockType: 'dualPanel';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Link".
- */
-export interface Link {
-  source?: ('categories' | 'custom' | 'mail' | 'products' | 'pages' | 'whatsapp') | null;
-  category?: (number | null) | Category;
-  custom?: string | null;
-  mail?: string | null;
-  whatsappNumber?: string | null;
-  target?: boolean | null;
-  whatsappMessage?: string | null;
-  label?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -780,76 +865,11 @@ export interface CbMarquee {
  */
 export interface CbRelatedProducts {
   title?: string | null;
+  products?: (number | Product)[] | null;
   cbSpacing?: CbSpacing;
   id?: string | null;
   blockName?: string | null;
   blockType: 'relatedProducts';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Meta".
- */
-export interface Meta {
-  title?: string | null;
-  description?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "products".
- */
-export interface Product {
-  id: number;
-  _order?: string | null;
-  slug: string;
-  entryStatus: 'disabled' | 'live';
-  availability: 'available' | 'unavailable';
-  unavailableLabel?: (number | null) | Tag;
-  title: string;
-  url?: string | null;
-  uri?: string | null;
-  thumbnail?: (number | null) | MediaProduct;
-  thumbnailHover?: (number | null) | MediaProduct;
-  marquee?: (number | MediaProduct)[] | null;
-  bannerTitle?: string | null;
-  description: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  category: number | Category;
-  /**
-   * Badge will only shown on product listing page
-   */
-  badge?: (number | null) | Tag;
-  flavour: Flavour;
-  prices: {
-    price: Price;
-    id?: string | null;
-  }[];
-  addons?: (number | Addon)[] | null;
-  meta?: Meta;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Flavour".
- */
-export interface Flavour {
-  showFlavour?: boolean | null;
-  freshCreamy: '_0' | '_10' | '_20' | '_30' | '_40' | '_50' | '_60' | '_70' | '_80' | '_90' | '_100';
-  custardySpongy: '_0' | '_10' | '_20' | '_30' | '_40' | '_50' | '_60' | '_70' | '_80' | '_90' | '_100';
-  tangySweet: '_0' | '_10' | '_20' | '_30' | '_40' | '_50' | '_60' | '_70' | '_80' | '_90' | '_100';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1563,9 +1583,26 @@ export interface ContentBlocksSelect<T extends boolean = true> {
  */
 export interface CbCalloutSelect<T extends boolean = true> {
   title?: T;
+  link?: T | LinkSelect<T>;
   cbSpacing?: T | CbSpacingSelect<T>;
   id?: T;
   blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Link_select".
+ */
+export interface LinkSelect<T extends boolean = true> {
+  source?: T;
+  product?: T;
+  page?: T;
+  category?: T;
+  custom?: T;
+  mail?: T;
+  whatsappNumber?: T;
+  target?: T;
+  whatsappMessage?: T;
+  label?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1592,20 +1629,6 @@ export interface CbDualPanelSelect<T extends boolean = true> {
   cbSpacing?: T | CbSpacingSelect<T>;
   id?: T;
   blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Link_select".
- */
-export interface LinkSelect<T extends boolean = true> {
-  source?: T;
-  category?: T;
-  custom?: T;
-  mail?: T;
-  whatsappNumber?: T;
-  target?: T;
-  whatsappMessage?: T;
-  label?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1644,6 +1667,7 @@ export interface CbMarqueeSelect<T extends boolean = true> {
  */
 export interface CbRelatedProductsSelect<T extends boolean = true> {
   title?: T;
+  products?: T;
   cbSpacing?: T | CbSpacingSelect<T>;
   id?: T;
   blockName?: T;
@@ -1662,6 +1686,7 @@ export interface MetaSelect<T extends boolean = true> {
  */
 export interface ProductsSelect<T extends boolean = true> {
   _order?: T;
+  typeHandle?: T;
   slug?: T;
   entryStatus?: T;
   availability?: T;
@@ -1774,6 +1799,29 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "navigation".
+ */
+export interface Navigation {
+  id: number;
+  navigations?:
+    | {
+        entryStatus: 'disabled' | 'live';
+        link?: Link;
+        children?:
+          | {
+              entryStatus: 'disabled' | 'live';
+              link?: Link;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "homepage".
  */
 export interface Homepage {
@@ -1882,6 +1930,49 @@ export interface Homepage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer".
+ */
+export interface Footer {
+  id: number;
+  address?: string | null;
+  businessHours?: string | null;
+  socialMedia?: SocialMedia;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Icon".
+ */
+export interface Icon {
+  source?: 'reactIcon' | null;
+  reactIcon?: ('CiInstagram' | 'CiMail') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "navigation_select".
+ */
+export interface NavigationSelect<T extends boolean = true> {
+  navigations?:
+    | T
+    | {
+        entryStatus?: T;
+        link?: T | LinkSelect<T>;
+        children?:
+          | T
+          | {
+              entryStatus?: T;
+              link?: T | LinkSelect<T>;
+              id?: T;
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "homepage_select".
  */
 export interface HomepageSelect<T extends boolean = true> {
@@ -1931,6 +2022,35 @@ export interface HomepageSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer_select".
+ */
+export interface FooterSelect<T extends boolean = true> {
+  address?: T;
+  businessHours?: T;
+  socialMedia?: T | SocialMediaSelect<T>;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SocialMedia_select".
+ */
+export interface SocialMediaSelect<T extends boolean = true> {
+  icon?: T | IconSelect<T>;
+  link?: T | LinkSelect<T>;
+  id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Icon_select".
+ */
+export interface IconSelect<T extends boolean = true> {
+  source?: T;
+  reactIcon?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
