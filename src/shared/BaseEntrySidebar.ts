@@ -8,9 +8,10 @@ export type TypeHandleOptionItem = Exclude<Option, string>;
 
 export type BaseEntrySidebarProps = {
     typeHandle?: TypeHandleOptionItem[];
+    fields?: Field[];
 };
 
-export const BaseEntrySidebar = ({ typeHandle }: BaseEntrySidebarProps): Field => {
+export const BaseEntrySidebar = ({ typeHandle, fields: fieldsProps }: BaseEntrySidebarProps): Field => {
     const fields: Field[] = [];
 
     if (typeHandle && typeHandle.length > 0) {
@@ -48,6 +49,8 @@ export const BaseEntrySidebar = ({ typeHandle }: BaseEntrySidebarProps): Field =
     });
 
     fields.push(BaseEntryStatus());
+
+    if (fieldsProps && fieldsProps.length > 0) fields.push(...fieldsProps);
 
     return {
         type: 'group',

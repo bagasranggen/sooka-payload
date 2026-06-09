@@ -1,5 +1,6 @@
 import { GlobalConfig } from 'payload';
-import { BaseLink } from '@/collections/shared';
+
+import { BaseLink } from '@/shared/BaseLink';
 
 export const Footer: GlobalConfig = {
     slug: 'footer',

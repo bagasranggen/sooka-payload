@@ -3,8 +3,7 @@ import { Tab } from 'payload';
 import {
     MetaTitleField,
     MetaDescriptionField,
-    MetaImageField,
-    OverviewField,
+    // MetaImageField,
     PreviewField,
 } from '@payloadcms/plugin-seo/fields';
 
@@ -38,12 +37,12 @@ export const BaseEntrySEO = (): Tab => {
                         titlePath: 'meta.title',
                         descriptionPath: 'meta.description',
                     }),
-                    OverviewField({
-                        // field paths to match the target field for data
-                        titlePath: 'meta.title',
-                        descriptionPath: 'meta.description',
-                        // imagePath: 'meta.image',
-                    }),
+                    // OverviewField({
+                    //     // field paths to match the target field for data
+                    //     titlePath: 'meta.title',
+                    //     descriptionPath: 'meta.description',
+                    //     // imagePath: 'meta.image',
+                    // }),
                 ],
             },
         ],
