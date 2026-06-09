@@ -1,7 +1,9 @@
 import { CollectionConfig } from 'payload';
 
-import { BaseEntry, BaseFlavour, BasePrice } from '@/shared';
+import { ENTRY_HANDLES, ENTRY_TYPE_HANDLES } from '@/libs/constants';
 import { revalidatePage } from '@/libs/utils';
+
+import { BaseEntry, BaseFlavour, BasePrice } from '@/shared';
 
 export const Products: CollectionConfig = {
     slug: 'products',
@@ -23,6 +25,7 @@ export const Products: CollectionConfig = {
     },
     fields: BaseEntry({
         hasSeo: true,
+        typeHandle: [ENTRY_TYPE_HANDLES[ENTRY_HANDLES.PRODUCT]],
         sideBarFields: [
             {
                 type: 'select',
