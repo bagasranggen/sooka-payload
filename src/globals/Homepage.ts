@@ -21,6 +21,12 @@ export const Homepage: GlobalConfig = {
     },
     fields: BaseEntry({
         hasSeo: true,
+        url: {
+            withSlug: () => false,
+            additionalPath: async () => {
+                return ['__home__'];
+            },
+        },
         typeHandle: [ENTRY_TYPE_HANDLES[ENTRY_HANDLES.HOMEPAGE]],
         tabs: [
             {
