@@ -73,8 +73,6 @@ export const BaseEntryGeneral = ({
 
     if (fieldsProps) fields.push(...fieldsProps);
 
-    // fields.push( )
-
     return {
         label: 'General',
         fields,
