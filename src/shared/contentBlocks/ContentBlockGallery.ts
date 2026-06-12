@@ -4,7 +4,7 @@ import { BaseContentBlocksField } from '@/shared/contentBlocks/BaseContentBlocks
 
 export const ContentBlockGallery: Block = {
     slug: 'gallery',
-    interfaceName: 'ContentBlockGallery',
+    interfaceName: 'CbGallery',
     fields: BaseContentBlocksField({
         tabs: [
             {

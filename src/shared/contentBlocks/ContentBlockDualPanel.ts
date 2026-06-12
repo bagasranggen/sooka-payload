@@ -64,5 +64,23 @@ export const ContentBlockDualPanel: Block = {
                 ],
             },
         ],
+        settings: [
+            {
+                type: 'row',
+                fields: [
+                    {
+                        type: 'select',
+                        name: 'layout',
+                        defaultValue: '_2_3',
+                        options: [
+                            { label: '2:3', value: '_2_3' },
+                            { label: '3:2', value: '_3_2' },
+                            { label: '1:1', value: '_1_1' },
+                        ],
+                        admin: { width: '50%' },
+                    },
+                ],
+            },
+        ],
     }),
 };

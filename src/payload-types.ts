@@ -673,7 +673,7 @@ export interface Page {
  * via the `definition` "ContentBlocks".
  */
 export interface ContentBlocks {
-  blocks?: (CbCallout | CbDualPanel | ContentBlockGallery | CbHeading | CbMarquee | CbRelatedProducts)[] | null;
+  blocks?: (CbCallout | CbDualPanel | CbGallery | CbHeading | CbMarquee | CbRelatedProducts)[] | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -806,6 +806,7 @@ export interface CbDualPanel {
       }[]
     | null;
   link?: Link;
+  layout?: ('_2_3' | '_3_2' | '_1_1') | null;
   cbSpacing?: CbSpacing;
   id?: string | null;
   blockName?: string | null;
@@ -813,9 +814,9 @@ export interface CbDualPanel {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentBlockGallery".
+ * via the `definition` "CbGallery".
  */
-export interface ContentBlockGallery {
+export interface CbGallery {
   media?: (number | MediaGallery)[] | null;
   cbSpacing?: CbSpacing;
   id?: string | null;
@@ -1571,7 +1572,7 @@ export interface ContentBlocksSelect<T extends boolean = true> {
     | {
         callout?: T | CbCalloutSelect<T>;
         dualPanel?: T | CbDualPanelSelect<T>;
-        gallery?: T | ContentBlockGallerySelect<T>;
+        gallery?: T | CbGallerySelect<T>;
         heading?: T | CbHeadingSelect<T>;
         marquee?: T | CbMarqueeSelect<T>;
         relatedProducts?: T | CbRelatedProductsSelect<T>;
@@ -1626,15 +1627,16 @@ export interface CbDualPanelSelect<T extends boolean = true> {
         id?: T;
       };
   link?: T | LinkSelect<T>;
+  layout?: T;
   cbSpacing?: T | CbSpacingSelect<T>;
   id?: T;
   blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentBlockGallery_select".
+ * via the `definition` "CbGallery_select".
  */
-export interface ContentBlockGallerySelect<T extends boolean = true> {
+export interface CbGallerySelect<T extends boolean = true> {
   media?: T;
   cbSpacing?: T | CbSpacingSelect<T>;
   id?: T;
