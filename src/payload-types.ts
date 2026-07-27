@@ -79,40 +79,42 @@ export interface Config {
   };
   blocks: {};
   collections: {
+    mediaAddons: MediaAddon;
+    mediaDualPanels: MediaDualPanel;
+    mediaGalleries: MediaGallery;
+    mediaGlobals: MediaGlobal;
+    mediaMarquees: MediaMarquee;
+    mediaProducts: MediaProduct;
+    testimonials: Testimonial;
     addons: Addon;
     categories: Category;
-    mediaAddon: MediaAddon;
-    mediaDualPanel: MediaDualPanel;
-    mediaGallery: MediaGallery;
-    mediaGlobal: MediaGlobal;
-    mediaMarquee: MediaMarquee;
-    mediaProduct: MediaProduct;
+    tags: Tag;
     pages: Page;
     products: Product;
-    tags: Tag;
-    testimonials: Testimonial;
     tokens: Token;
     users: User;
+    'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
   collectionsJoins: {};
   collectionsSelect: {
+    mediaAddons: MediaAddonsSelect<false> | MediaAddonsSelect<true>;
+    mediaDualPanels: MediaDualPanelsSelect<false> | MediaDualPanelsSelect<true>;
+    mediaGalleries: MediaGalleriesSelect<false> | MediaGalleriesSelect<true>;
+    mediaGlobals: MediaGlobalsSelect<false> | MediaGlobalsSelect<true>;
+    mediaMarquees: MediaMarqueesSelect<false> | MediaMarqueesSelect<true>;
+    mediaProducts: MediaProductsSelect<false> | MediaProductsSelect<true>;
+    testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
     addons: AddonsSelect<false> | AddonsSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
-    mediaAddon: MediaAddonSelect<false> | MediaAddonSelect<true>;
-    mediaDualPanel: MediaDualPanelSelect<false> | MediaDualPanelSelect<true>;
-    mediaGallery: MediaGallerySelect<false> | MediaGallerySelect<true>;
-    mediaGlobal: MediaGlobalSelect<false> | MediaGlobalSelect<true>;
-    mediaMarquee: MediaMarqueeSelect<false> | MediaMarqueeSelect<true>;
-    mediaProduct: MediaProductSelect<false> | MediaProductSelect<true>;
+    tags: TagsSelect<false> | TagsSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
-    tags: TagsSelect<false> | TagsSelect<true>;
-    testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
     tokens: TokensSelect<false> | TokensSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -120,6 +122,7 @@ export interface Config {
   db: {
     defaultIDType: number;
   };
+  fallbackLocale: null;
   globals: {
     navigation: Navigation;
     homepage: Homepage;
@@ -131,13 +134,10 @@ export interface Config {
     footer: FooterSelect<false> | FooterSelect<true>;
   };
   locale: null;
-  user:
-    | (Token & {
-        collection: 'tokens';
-      })
-    | (User & {
-        collection: 'users';
-      });
+  widgets: {
+    collections: CollectionsWidget;
+  };
+  user: Token | User;
   jobs: {
     tasks: unknown;
     workflows: unknown;
@@ -181,32 +181,12 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "addons".
- */
-export interface Addon {
-  id: number;
-  typeHandle?: string | null;
-  entryStatus?: ('disabled' | 'live') | null;
-  title: string;
-  slug?: string | null;
-  url?: string | null;
-  uri?: string | null;
-  thumbnail: number | MediaAddon;
-  prices: {
-    price: Price;
-    id?: string | null;
-  }[];
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "mediaAddon".
+ * via the `definition` "mediaAddons".
  */
 export interface MediaAddon {
   id: number;
-  mobileAssets?: (number | null) | MediaAddon;
   alt: string;
+  mobileAssets?: (number | null) | MediaAddon;
   prefix?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -232,61 +212,12 @@ export interface MediaAddon {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Price".
- */
-export interface Price {
-  normalPrice: number;
-  salePrice?: number | null;
-  isFree?: boolean | null;
-  note?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories".
- */
-export interface Category {
-  id: number;
-  typeHandle?: string | null;
-  entryStatus?: ('disabled' | 'live') | null;
-  title: string;
-  slug?: string | null;
-  url?: string | null;
-  uri?: string | null;
-  description?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  meta?: Meta;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Meta".
- */
-export interface Meta {
-  title?: string | null;
-  description?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "mediaDualPanel".
+ * via the `definition` "mediaDualPanels".
  */
 export interface MediaDualPanel {
   id: number;
-  mobileAssets?: (number | null) | MediaDualPanel;
   alt: string;
+  mobileAssets?: (number | null) | MediaDualPanel;
   prefix?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -336,12 +267,12 @@ export interface MediaDualPanel {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "mediaGallery".
+ * via the `definition` "mediaGalleries".
  */
 export interface MediaGallery {
   id: number;
-  mobileAssets?: (number | null) | MediaGallery;
   alt: string;
+  mobileAssets?: (number | null) | MediaGallery;
   prefix?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -399,12 +330,12 @@ export interface MediaGallery {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "mediaGlobal".
+ * via the `definition` "mediaGlobals".
  */
 export interface MediaGlobal {
   id: number;
-  mobileAssets?: (number | null) | MediaGallery;
   alt: string;
+  mobileAssets?: (number | null) | MediaGlobal;
   prefix?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -478,11 +409,10 @@ export interface MediaGlobal {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "mediaMarquee".
+ * via the `definition` "mediaMarquees".
  */
 export interface MediaMarquee {
   id: number;
-  mobileAssets?: (number | null) | MediaMarquee;
   alt: string;
   prefix?: string | null;
   updatedAt: string;
@@ -517,12 +447,12 @@ export interface MediaMarquee {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "mediaProduct".
+ * via the `definition` "mediaProducts".
  */
 export interface MediaProduct {
   id: number;
-  mobileAssets?: (number | null) | MediaProduct;
   alt: string;
+  mobileAssets?: (number | null) | MediaProduct;
   prefix?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -620,241 +550,13 @@ export interface MediaProduct {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "pages".
- */
-export interface Page {
-  id: number;
-  typeHandle?: string | null;
-  entryStatus?: ('disabled' | 'live') | null;
-  title: string;
-  slug?: string | null;
-  url?: string | null;
-  uri?: string | null;
-  contentBlocks?:
-    | (
-        | ContentBlockCallout
-        | ContentBlockDualPanel
-        | ContentBlockGallery
-        | ContentBlockHeading
-        | ContentBlockMarquee
-        | ContentBlockRelatedProducts
-      )[]
-    | null;
-  meta?: Meta;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentBlockCallout".
- */
-export interface ContentBlockCallout {
-  title?: string | null;
-  link?: Link;
-  cbSpacing?: CbSpacing;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'callout';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Link".
- */
-export interface Link {
-  source?: ('categories' | 'custom' | 'mail' | 'products' | 'pages' | 'whatsapp') | null;
-  product?: (number | null) | Product;
-  page?: (number | null) | Page;
-  category?: (number | null) | Category;
-  custom?: string | null;
-  mail?: string | null;
-  whatsappNumber?: string | null;
-  target?: boolean | null;
-  whatsappMessage?: string | null;
-  label?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "products".
- */
-export interface Product {
-  id: number;
-  _order?: string | null;
-  typeHandle?: string | null;
-  entryStatus?: ('disabled' | 'live') | null;
-  title: string;
-  slug?: string | null;
-  url?: string | null;
-  uri?: string | null;
-  thumbnail?: (number | null) | MediaProduct;
-  thumbnailHover?: (number | null) | MediaProduct;
-  marquee?: (number | MediaProduct)[] | null;
-  availability: 'available' | 'unavailable';
-  unavailableLabel?: (number | null) | Tag;
-  unavailableCustomLabel?: string | null;
-  bannerTitle?: string | null;
-  description: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  category: number | Category;
-  flavour: Flavour;
-  prices: {
-    price: Price;
-    id?: string | null;
-  }[];
-  addons?: (number | Addon)[] | null;
-  meta?: Meta;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "tags".
- */
-export interface Tag {
-  id: number;
-  typeHandle?: string | null;
-  entryStatus?: ('disabled' | 'live') | null;
-  title: string;
-  slug?: string | null;
-  url?: string | null;
-  uri?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Flavour".
- */
-export interface Flavour {
-  showFlavour?: boolean | null;
-  freshCreamy: '_0' | '_10' | '_20' | '_30' | '_40' | '_50' | '_60' | '_70' | '_80' | '_90' | '_100';
-  custardySpongy: '_0' | '_10' | '_20' | '_30' | '_40' | '_50' | '_60' | '_70' | '_80' | '_90' | '_100';
-  tangySweet: '_0' | '_10' | '_20' | '_30' | '_40' | '_50' | '_60' | '_70' | '_80' | '_90' | '_100';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CbSpacing".
- */
-export interface CbSpacing {
-  marginTop?: ('1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10') | null;
-  marginBottom?: ('1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentBlockDualPanel".
- */
-export interface ContentBlockDualPanel {
-  contents?:
-    | {
-        type: 'text' | 'media';
-        description?: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
-        media?: (number | null) | MediaDualPanel;
-        id?: string | null;
-      }[]
-    | null;
-  layout?: ('_2_3' | '_3_2' | '_1_1') | null;
-  cbSpacing?: CbSpacing;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'dualPanel';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentBlockGallery".
- */
-export interface ContentBlockGallery {
-  media?: (number | MediaGallery)[] | null;
-  cbSpacing?: CbSpacing;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'gallery';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentBlockHeading".
- */
-export interface ContentBlockHeading {
-  title?: string | null;
-  description?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  headingLevel?: ('1' | '2' | '3' | '4' | '5') | null;
-  cbSpacing?: CbSpacing;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'heading';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentBlockMarquee".
- */
-export interface ContentBlockMarquee {
-  media?: (number | MediaMarquee)[] | null;
-  cbSpacing?: CbSpacing;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'marquee';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentBlockRelatedProducts".
- */
-export interface ContentBlockRelatedProducts {
-  title?: string | null;
-  products?: (number | Product)[] | null;
-  cbSpacing?: CbSpacing;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'relatedProducts';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "testimonials".
  */
 export interface Testimonial {
   id: number;
-  typeHandle?: string | null;
-  entryStatus?: ('disabled' | 'live') | null;
+  slug: string;
+  entryStatus: 'disabled' | 'live';
   title: string;
-  slug?: string | null;
   url?: string | null;
   uri?: string | null;
   author: string;
@@ -878,6 +580,305 @@ export interface Testimonial {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "addons".
+ */
+export interface Addon {
+  id: number;
+  slug: string;
+  entryStatus: 'disabled' | 'live';
+  title: string;
+  url?: string | null;
+  uri?: string | null;
+  thumbnail: number | MediaAddon;
+  hasNote?: boolean | null;
+  note?: string | null;
+  prices: {
+    price: Price;
+    id?: string | null;
+  }[];
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Price".
+ */
+export interface Price {
+  normalPrice: number;
+  salePrice?: number | null;
+  isFree?: boolean | null;
+  note?: string | null;
+  additionalInfo?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: number;
+  typeHandle: 'sectionTaxonomiesCategory';
+  slug: string;
+  entryStatus: 'disabled' | 'live';
+  title: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags".
+ */
+export interface Tag {
+  id: number;
+  typeHandle: 'sectionTaxonomiesTag';
+  slug: string;
+  entryStatus: 'disabled' | 'live';
+  title: string;
+  /**
+   * This will only shown on badge component
+   */
+  badgeTitle?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages".
+ */
+export interface Page {
+  id: number;
+  typeHandle: 'sectionStaticPage' | 'sectionProductListingIndex';
+  slug: string;
+  entryStatus: 'disabled' | 'live';
+  title: string;
+  url?: string | null;
+  uri?: string | null;
+  contentBlocks?: ContentBlocks;
+  category?: (number | null) | Category;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  meta?: Meta;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentBlocks".
+ */
+export interface ContentBlocks {
+  blocks?: (CbCallout | CbDualPanel | CbGallery | CbHeading | CbMarquee | CbRelatedProducts)[] | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CbCallout".
+ */
+export interface CbCallout {
+  title?: string | null;
+  link?: Link;
+  cbSpacing?: CbSpacing;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'callout';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Link".
+ */
+export interface Link {
+  source?: ('custom' | 'mail' | 'products' | 'pages' | 'whatsapp') | null;
+  product?: (number | null) | Product;
+  page?: (number | null) | Page;
+  custom?: string | null;
+  mail?: string | null;
+  whatsappNumber?: string | null;
+  target?: boolean | null;
+  whatsappMessage?: string | null;
+  label?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products".
+ */
+export interface Product {
+  id: number;
+  _order?: string | null;
+  typeHandle: 'sectionProductIndex';
+  slug: string;
+  entryStatus: 'disabled' | 'live';
+  availability: 'available' | 'unavailable';
+  unavailableLabel?: (number | null) | Tag;
+  title: string;
+  url?: string | null;
+  uri?: string | null;
+  thumbnail?: (number | null) | MediaProduct;
+  thumbnailHover?: (number | null) | MediaProduct;
+  marquee?: (number | MediaProduct)[] | null;
+  bannerTitle?: string | null;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  category: number | Category;
+  /**
+   * Badge will only shown on product listing page
+   */
+  badge?: (number | null) | Tag;
+  quantity?: number | null;
+  flavour?: Flavour;
+  prices: {
+    price: Price;
+    id?: string | null;
+  }[];
+  addons?: (number | Addon)[] | null;
+  meta?: Meta;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Flavour".
+ */
+export interface Flavour {
+  showFlavour?: boolean | null;
+  freshCreamy?: ('_0' | '_10' | '_20' | '_30' | '_40' | '_50' | '_60' | '_70' | '_80' | '_90' | '_100') | null;
+  custardySpongy?: ('_0' | '_10' | '_20' | '_30' | '_40' | '_50' | '_60' | '_70' | '_80' | '_90' | '_100') | null;
+  tangySweet?: ('_0' | '_10' | '_20' | '_30' | '_40' | '_50' | '_60' | '_70' | '_80' | '_90' | '_100') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Meta".
+ */
+export interface Meta {
+  title?: string | null;
+  description?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CbSpacing".
+ */
+export interface CbSpacing {
+  marginTop?: ('1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10') | null;
+  marginBottom?: ('1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CbDualPanel".
+ */
+export interface CbDualPanel {
+  contents?:
+    | {
+        type: 'text' | 'media';
+        description?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        media?: (number | null) | MediaDualPanel;
+        id?: string | null;
+      }[]
+    | null;
+  link?: Link;
+  layout?: ('_2_3' | '_3_2' | '_1_1') | null;
+  cbSpacing?: CbSpacing;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'dualPanel';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CbGallery".
+ */
+export interface CbGallery {
+  media?: (number | MediaGallery)[] | null;
+  cbSpacing?: CbSpacing;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'gallery';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CbHeading".
+ */
+export interface CbHeading {
+  title?: string | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  cbSpacing?: CbSpacing;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'heading';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CbMarquee".
+ */
+export interface CbMarquee {
+  media?: (number | MediaMarquee)[] | null;
+  cbSpacing?: CbSpacing;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'marquee';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CbRelatedProducts".
+ */
+export interface CbRelatedProducts {
+  title?: string | null;
+  products?: (number | Product)[] | null;
+  cbSpacing?: CbSpacing;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'relatedProducts';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "tokens".
  */
 export interface Token {
@@ -888,6 +889,7 @@ export interface Token {
   enableAPIKey?: boolean | null;
   apiKey?: string | null;
   apiKeyIndex?: string | null;
+  collection: 'tokens';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -912,6 +914,24 @@ export interface User {
       }[]
     | null;
   password?: string | null;
+  collection: 'users';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-kv".
+ */
+export interface PayloadKv {
+  id: number;
+  key: string;
+  data:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -921,6 +941,34 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
+        relationTo: 'mediaAddons';
+        value: number | MediaAddon;
+      } | null)
+    | ({
+        relationTo: 'mediaDualPanels';
+        value: number | MediaDualPanel;
+      } | null)
+    | ({
+        relationTo: 'mediaGalleries';
+        value: number | MediaGallery;
+      } | null)
+    | ({
+        relationTo: 'mediaGlobals';
+        value: number | MediaGlobal;
+      } | null)
+    | ({
+        relationTo: 'mediaMarquees';
+        value: number | MediaMarquee;
+      } | null)
+    | ({
+        relationTo: 'mediaProducts';
+        value: number | MediaProduct;
+      } | null)
+    | ({
+        relationTo: 'testimonials';
+        value: number | Testimonial;
+      } | null)
+    | ({
         relationTo: 'addons';
         value: number | Addon;
       } | null)
@@ -929,28 +977,8 @@ export interface PayloadLockedDocument {
         value: number | Category;
       } | null)
     | ({
-        relationTo: 'mediaAddon';
-        value: number | MediaAddon;
-      } | null)
-    | ({
-        relationTo: 'mediaDualPanel';
-        value: number | MediaDualPanel;
-      } | null)
-    | ({
-        relationTo: 'mediaGallery';
-        value: number | MediaGallery;
-      } | null)
-    | ({
-        relationTo: 'mediaGlobal';
-        value: number | MediaGlobal;
-      } | null)
-    | ({
-        relationTo: 'mediaMarquee';
-        value: number | MediaMarquee;
-      } | null)
-    | ({
-        relationTo: 'mediaProduct';
-        value: number | MediaProduct;
+        relationTo: 'tags';
+        value: number | Tag;
       } | null)
     | ({
         relationTo: 'pages';
@@ -959,14 +987,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'products';
         value: number | Product;
-      } | null)
-    | ({
-        relationTo: 'tags';
-        value: number | Tag;
-      } | null)
-    | ({
-        relationTo: 'testimonials';
-        value: number | Testimonial;
       } | null)
     | ({
         relationTo: 'tokens';
@@ -1030,66 +1050,11 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "addons_select".
+ * via the `definition` "mediaAddons_select".
  */
-export interface AddonsSelect<T extends boolean = true> {
-  typeHandle?: T;
-  entryStatus?: T;
-  title?: T;
-  slug?: T;
-  url?: T;
-  uri?: T;
-  thumbnail?: T;
-  prices?:
-    | T
-    | {
-        price?: T | PriceSelect<T>;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Price_select".
- */
-export interface PriceSelect<T extends boolean = true> {
-  normalPrice?: T;
-  salePrice?: T;
-  isFree?: T;
-  note?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories_select".
- */
-export interface CategoriesSelect<T extends boolean = true> {
-  typeHandle?: T;
-  entryStatus?: T;
-  title?: T;
-  slug?: T;
-  url?: T;
-  uri?: T;
-  description?: T;
-  meta?: T | MetaSelect<T>;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Meta_select".
- */
-export interface MetaSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "mediaAddon_select".
- */
-export interface MediaAddonSelect<T extends boolean = true> {
-  mobileAssets?: T;
+export interface MediaAddonsSelect<T extends boolean = true> {
   alt?: T;
+  mobileAssets?: T;
   prefix?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1119,11 +1084,11 @@ export interface MediaAddonSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "mediaDualPanel_select".
+ * via the `definition` "mediaDualPanels_select".
  */
-export interface MediaDualPanelSelect<T extends boolean = true> {
-  mobileAssets?: T;
+export interface MediaDualPanelsSelect<T extends boolean = true> {
   alt?: T;
+  mobileAssets?: T;
   prefix?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1183,11 +1148,11 @@ export interface MediaDualPanelSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "mediaGallery_select".
+ * via the `definition` "mediaGalleries_select".
  */
-export interface MediaGallerySelect<T extends boolean = true> {
-  mobileAssets?: T;
+export interface MediaGalleriesSelect<T extends boolean = true> {
   alt?: T;
+  mobileAssets?: T;
   prefix?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1257,11 +1222,11 @@ export interface MediaGallerySelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "mediaGlobal_select".
+ * via the `definition` "mediaGlobals_select".
  */
-export interface MediaGlobalSelect<T extends boolean = true> {
-  mobileAssets?: T;
+export interface MediaGlobalsSelect<T extends boolean = true> {
   alt?: T;
+  mobileAssets?: T;
   prefix?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1351,10 +1316,9 @@ export interface MediaGlobalSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "mediaMarquee_select".
+ * via the `definition` "mediaMarquees_select".
  */
-export interface MediaMarqueeSelect<T extends boolean = true> {
-  mobileAssets?: T;
+export interface MediaMarqueesSelect<T extends boolean = true> {
   alt?: T;
   prefix?: T;
   updatedAt?: T;
@@ -1395,11 +1359,11 @@ export interface MediaMarqueeSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "mediaProduct_select".
+ * via the `definition` "mediaProducts_select".
  */
-export interface MediaProductSelect<T extends boolean = true> {
-  mobileAssets?: T;
+export interface MediaProductsSelect<T extends boolean = true> {
   alt?: T;
+  mobileAssets?: T;
   prefix?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1519,34 +1483,116 @@ export interface MediaProductSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "testimonials_select".
+ */
+export interface TestimonialsSelect<T extends boolean = true> {
+  slug?: T;
+  entryStatus?: T;
+  title?: T;
+  url?: T;
+  uri?: T;
+  author?: T;
+  testimonial?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "addons_select".
+ */
+export interface AddonsSelect<T extends boolean = true> {
+  slug?: T;
+  entryStatus?: T;
+  title?: T;
+  url?: T;
+  uri?: T;
+  thumbnail?: T;
+  hasNote?: T;
+  note?: T;
+  prices?:
+    | T
+    | {
+        price?: T | PriceSelect<T>;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Price_select".
+ */
+export interface PriceSelect<T extends boolean = true> {
+  normalPrice?: T;
+  salePrice?: T;
+  isFree?: T;
+  note?: T;
+  additionalInfo?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories_select".
+ */
+export interface CategoriesSelect<T extends boolean = true> {
+  typeHandle?: T;
+  slug?: T;
+  entryStatus?: T;
+  title?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags_select".
+ */
+export interface TagsSelect<T extends boolean = true> {
+  typeHandle?: T;
+  slug?: T;
+  entryStatus?: T;
+  title?: T;
+  badgeTitle?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages_select".
  */
 export interface PagesSelect<T extends boolean = true> {
   typeHandle?: T;
+  slug?: T;
   entryStatus?: T;
   title?: T;
-  slug?: T;
   url?: T;
   uri?: T;
-  contentBlocks?:
-    | T
-    | {
-        callout?: T | ContentBlockCalloutSelect<T>;
-        dualPanel?: T | ContentBlockDualPanelSelect<T>;
-        gallery?: T | ContentBlockGallerySelect<T>;
-        heading?: T | ContentBlockHeadingSelect<T>;
-        marquee?: T | ContentBlockMarqueeSelect<T>;
-        relatedProducts?: T | ContentBlockRelatedProductsSelect<T>;
-      };
+  contentBlocks?: T | ContentBlocksSelect<T>;
+  category?: T;
+  description?: T;
   meta?: T | MetaSelect<T>;
   updatedAt?: T;
   createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentBlockCallout_select".
+ * via the `definition` "ContentBlocks_select".
  */
-export interface ContentBlockCalloutSelect<T extends boolean = true> {
+export interface ContentBlocksSelect<T extends boolean = true> {
+  blocks?:
+    | T
+    | {
+        callout?: T | CbCalloutSelect<T>;
+        dualPanel?: T | CbDualPanelSelect<T>;
+        gallery?: T | CbGallerySelect<T>;
+        heading?: T | CbHeadingSelect<T>;
+        marquee?: T | CbMarqueeSelect<T>;
+        relatedProducts?: T | CbRelatedProductsSelect<T>;
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CbCallout_select".
+ */
+export interface CbCalloutSelect<T extends boolean = true> {
   title?: T;
   link?: T | LinkSelect<T>;
   cbSpacing?: T | CbSpacingSelect<T>;
@@ -1561,7 +1607,6 @@ export interface LinkSelect<T extends boolean = true> {
   source?: T;
   product?: T;
   page?: T;
-  category?: T;
   custom?: T;
   mail?: T;
   whatsappNumber?: T;
@@ -1579,9 +1624,9 @@ export interface CbSpacingSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentBlockDualPanel_select".
+ * via the `definition` "CbDualPanel_select".
  */
-export interface ContentBlockDualPanelSelect<T extends boolean = true> {
+export interface CbDualPanelSelect<T extends boolean = true> {
   contents?:
     | T
     | {
@@ -1590,6 +1635,7 @@ export interface ContentBlockDualPanelSelect<T extends boolean = true> {
         media?: T;
         id?: T;
       };
+  link?: T | LinkSelect<T>;
   layout?: T;
   cbSpacing?: T | CbSpacingSelect<T>;
   id?: T;
@@ -1597,9 +1643,9 @@ export interface ContentBlockDualPanelSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentBlockGallery_select".
+ * via the `definition` "CbGallery_select".
  */
-export interface ContentBlockGallerySelect<T extends boolean = true> {
+export interface CbGallerySelect<T extends boolean = true> {
   media?: T;
   cbSpacing?: T | CbSpacingSelect<T>;
   id?: T;
@@ -1607,21 +1653,20 @@ export interface ContentBlockGallerySelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentBlockHeading_select".
+ * via the `definition` "CbHeading_select".
  */
-export interface ContentBlockHeadingSelect<T extends boolean = true> {
+export interface CbHeadingSelect<T extends boolean = true> {
   title?: T;
   description?: T;
-  headingLevel?: T;
   cbSpacing?: T | CbSpacingSelect<T>;
   id?: T;
   blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentBlockMarquee_select".
+ * via the `definition` "CbMarquee_select".
  */
-export interface ContentBlockMarqueeSelect<T extends boolean = true> {
+export interface CbMarqueeSelect<T extends boolean = true> {
   media?: T;
   cbSpacing?: T | CbSpacingSelect<T>;
   id?: T;
@@ -1629,9 +1674,9 @@ export interface ContentBlockMarqueeSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentBlockRelatedProducts_select".
+ * via the `definition` "CbRelatedProducts_select".
  */
-export interface ContentBlockRelatedProductsSelect<T extends boolean = true> {
+export interface CbRelatedProductsSelect<T extends boolean = true> {
   title?: T;
   products?: T;
   cbSpacing?: T | CbSpacingSelect<T>;
@@ -1640,25 +1685,34 @@ export interface ContentBlockRelatedProductsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Meta_select".
+ */
+export interface MetaSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "products_select".
  */
 export interface ProductsSelect<T extends boolean = true> {
   _order?: T;
   typeHandle?: T;
-  entryStatus?: T;
-  title?: T;
   slug?: T;
+  entryStatus?: T;
+  availability?: T;
+  unavailableLabel?: T;
+  title?: T;
   url?: T;
   uri?: T;
   thumbnail?: T;
   thumbnailHover?: T;
   marquee?: T;
-  availability?: T;
-  unavailableLabel?: T;
-  unavailableCustomLabel?: T;
   bannerTitle?: T;
   description?: T;
   category?: T;
+  badge?: T;
+  quantity?: T;
   flavour?: T | FlavourSelect<T>;
   prices?:
     | T
@@ -1680,36 +1734,6 @@ export interface FlavourSelect<T extends boolean = true> {
   freshCreamy?: T;
   custardySpongy?: T;
   tangySweet?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "tags_select".
- */
-export interface TagsSelect<T extends boolean = true> {
-  typeHandle?: T;
-  entryStatus?: T;
-  title?: T;
-  slug?: T;
-  url?: T;
-  uri?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "testimonials_select".
- */
-export interface TestimonialsSelect<T extends boolean = true> {
-  typeHandle?: T;
-  entryStatus?: T;
-  title?: T;
-  slug?: T;
-  url?: T;
-  uri?: T;
-  author?: T;
-  testimonial?: T;
-  updatedAt?: T;
-  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1744,6 +1768,14 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-kv_select".
+ */
+export interface PayloadKvSelect<T extends boolean = true> {
+  key?: T;
+  data?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1785,11 +1817,11 @@ export interface Navigation {
   id: number;
   navigations?:
     | {
-        entryStatus?: ('disabled' | 'live') | null;
+        entryStatus: 'disabled' | 'live';
         link?: Link;
         children?:
           | {
-              entryStatus?: ('disabled' | 'live') | null;
+              entryStatus: 'disabled' | 'live';
               link?: Link;
               id?: string | null;
             }[]
@@ -1806,16 +1838,16 @@ export interface Navigation {
  */
 export interface Homepage {
   id: number;
-  typeHandle?: string | null;
-  entryStatus?: ('disabled' | 'live') | null;
+  typeHandle: 'sectionHomepage';
+  slug: string;
+  entryStatus: 'disabled' | 'live';
   title: string;
-  slug?: string | null;
   url?: string | null;
   uri?: string | null;
   bannerMedia?:
     | {
         source?: ('products' | 'custom') | null;
-        entryStatus?: ('disabled' | 'live') | null;
+        entryStatus: 'disabled' | 'live';
         tag?: (number | null) | Tag;
         textAlign?: ('left' | 'right') | null;
         bannerOverlay?: ('0' | '1' | '2' | '3' | '4' | '5') | null;
@@ -1915,6 +1947,7 @@ export interface Homepage {
 export interface Footer {
   id: number;
   address?: string | null;
+  addressLink?: Link;
   businessHours?: string | null;
   socialMedia?: SocialMedia;
   updatedAt?: string | null;
@@ -1957,9 +1990,9 @@ export interface NavigationSelect<T extends boolean = true> {
  */
 export interface HomepageSelect<T extends boolean = true> {
   typeHandle?: T;
+  slug?: T;
   entryStatus?: T;
   title?: T;
-  slug?: T;
   url?: T;
   uri?: T;
   bannerMedia?:
@@ -2009,6 +2042,7 @@ export interface HomepageSelect<T extends boolean = true> {
  */
 export interface FooterSelect<T extends boolean = true> {
   address?: T;
+  addressLink?: T | LinkSelect<T>;
   businessHours?: T;
   socialMedia?: T | SocialMediaSelect<T>;
   updatedAt?: T;
@@ -2031,6 +2065,16 @@ export interface SocialMediaSelect<T extends boolean = true> {
 export interface IconSelect<T extends boolean = true> {
   source?: T;
   reactIcon?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "collections_widget".
+ */
+export interface CollectionsWidget {
+  data?: {
+    [k: string]: unknown;
+  };
+  width: 'full';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

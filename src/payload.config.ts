@@ -10,34 +10,29 @@ import { buildConfig } from 'payload';
 import { fileURLToPath } from 'url';
 import sharp from 'sharp';
 
-import { BaseS3Collection } from '@/collections/shared';
+import { BaseS3Collection } from '@/shared';
 
-import { AddOns } from '@/collections/AddOns';
-import { Categories } from '@/collections/Categories';
-import { Pages } from '@/collections/Pages';
-import { Products } from '@/collections/Products';
-import { Tags } from '@/collections/Tags';
-import { Testimonials } from '@/collections/Testimonials';
-import { Tokens } from '@/collections/Tokens';
-import { Users } from '@/collections/Users';
+import { Testimonials } from '@/collections/entries';
+import { Pages, Products } from '@/collections/pages';
+import { AddOns, Categories, Tags } from '@/collections/taxonomies';
+import { Tokens, Users } from '@/collections/users';
+
+import { Footer, Homepage, Navigation } from '@/globals';
 
 import {
-    MediaAddon,
-    MediaDualPanel,
-    MediaGallery,
-    MediaGlobal,
-    MediaMarquee,
-    MediaProduct,
+    MediaAddons,
+    MediaDualPanels,
+    MediaGalleries,
+    MediaGlobals,
+    MediaMarquees,
+    MediaProducts,
 } from '@/collections/assets';
-
-import { Navigation } from '@/globals/Navigation';
-import { Homepage } from '@/globals/Homepage';
-import { Footer } from '@/globals/Footer';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
 export default buildConfig({
+    cors: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : [],
     admin: {
         user: Users.slug,
         importMap: {
@@ -45,18 +40,18 @@ export default buildConfig({
         },
     },
     collections: [
+        MediaAddons,
+        MediaDualPanels,
+        MediaGalleries,
+        MediaGlobals,
+        MediaMarquees,
+        MediaProducts,
+        Testimonials,
         AddOns,
         Categories,
-        MediaAddon,
-        MediaDualPanel,
-        MediaGallery,
-        MediaGlobal,
-        MediaMarquee,
-        MediaProduct,
+        Tags,
         Pages,
         Products,
-        Tags,
-        Testimonials,
         Tokens,
         Users,
     ],
@@ -77,12 +72,12 @@ export default buildConfig({
         // storage-adapter-placeholder
         s3Storage({
             collections: {
-                ...BaseS3Collection({ prefix: 'mediaAddon' }),
-                ...BaseS3Collection({ prefix: 'mediaDualPanel' }),
-                ...BaseS3Collection({ prefix: 'mediaGallery' }),
-                ...BaseS3Collection({ prefix: 'mediaGlobal' }),
-                ...BaseS3Collection({ prefix: 'mediaMarquee' }),
-                ...BaseS3Collection({ prefix: 'mediaProduct' }),
+                ...BaseS3Collection({ prefix: 'mediaAddons' }),
+                ...BaseS3Collection({ prefix: 'mediaDualPanels' }),
+                ...BaseS3Collection({ prefix: 'mediaGalleries' }),
+                ...BaseS3Collection({ prefix: 'mediaGlobals' }),
+                ...BaseS3Collection({ prefix: 'mediaMarquees' }),
+                ...BaseS3Collection({ prefix: 'mediaProducts' }),
             },
             bucket: process.env.S3_BUCKET || '',
             config: {
@@ -96,10 +91,6 @@ export default buildConfig({
             },
         }),
         seoPlugin({
-            tabbedUI: true,
-            interfaceName: 'Meta',
-            collections: ['products', 'categories', 'pages'],
-            globals: ['homepage'],
             generateTitle: ({ doc }) => `${doc.title} - Sooka Baked Goods`,
             generateDescription: ({ doc }) => doc.excerpt,
         }),

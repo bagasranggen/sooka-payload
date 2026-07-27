@@ -1,5 +1,7 @@
 import { GlobalConfig } from 'payload';
-import { BaseLink, BaseStatus } from '@/collections/shared';
+
+import { BaseLink } from '@/shared/BaseLink';
+import { BaseEntryStatus } from '@/shared';
 import { revalidatePage } from '@/libs/utils';
 
 export const Navigation: GlobalConfig = {
@@ -22,7 +24,7 @@ export const Navigation: GlobalConfig = {
             fields: [
                 {
                     type: 'row',
-                    fields: [BaseStatus({ withStatus: true, width: '15%' })],
+                    fields: [BaseEntryStatus({ admin: { width: '15%' } })],
                 },
                 BaseLink(),
                 {
@@ -32,7 +34,7 @@ export const Navigation: GlobalConfig = {
                     fields: [
                         {
                             type: 'row',
-                            fields: [BaseStatus({ withStatus: true, width: '15%' })],
+                            fields: [BaseEntryStatus({ admin: { width: '15%' } })],
                         },
                         BaseLink(),
                     ],
