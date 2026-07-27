@@ -15,10 +15,10 @@ export const BaseS3Collection = ({ prefix }: BaseS3CollectionProps): S3StorageOp
     return {
         [prefix]: {
             prefix,
-            disablePayloadAccessControl: true,
-            generateFileURL: (args: GenerateFileUrlArg) => {
-                return `${process.env.S3_MEDIA_URI}/${args.prefix}/${args.filename}`;
-            },
+            // disablePayloadAccessControl: true,
+            // generateFileURL: (args: GenerateFileUrlArg) => {
+            //     return `${process.env.S3_MEDIA_URI}/${args.prefix}/${args.filename}`;
+            // },
         },
     };
 };
