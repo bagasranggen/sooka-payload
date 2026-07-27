@@ -589,6 +589,9 @@ export interface Addon {
   title: string;
   url?: string | null;
   uri?: string | null;
+  thumbnail: number | MediaAddon;
+  hasNote?: boolean | null;
+  note?: string | null;
   prices: {
     price: Price;
     id?: string | null;
@@ -605,6 +608,7 @@ export interface Price {
   salePrice?: number | null;
   isFree?: boolean | null;
   note?: string | null;
+  additionalInfo?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -616,21 +620,6 @@ export interface Category {
   slug: string;
   entryStatus: 'disabled' | 'live';
   title: string;
-  description?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -657,13 +646,29 @@ export interface Tag {
  */
 export interface Page {
   id: number;
-  typeHandle: 'sectionStaticPage';
+  typeHandle: 'sectionStaticPage' | 'sectionProductListingIndex';
   slug: string;
   entryStatus: 'disabled' | 'live';
   title: string;
   url?: string | null;
   uri?: string | null;
   contentBlocks?: ContentBlocks;
+  category?: (number | null) | Category;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   meta?: Meta;
   updatedAt: string;
   createdAt: string;
@@ -692,10 +697,9 @@ export interface CbCallout {
  * via the `definition` "Link".
  */
 export interface Link {
-  source?: ('categories' | 'custom' | 'mail' | 'products' | 'pages' | 'whatsapp') | null;
+  source?: ('custom' | 'mail' | 'products' | 'pages' | 'whatsapp') | null;
   product?: (number | null) | Product;
   page?: (number | null) | Page;
-  category?: (number | null) | Category;
   custom?: string | null;
   mail?: string | null;
   whatsappNumber?: string | null;
@@ -710,7 +714,7 @@ export interface Link {
 export interface Product {
   id: number;
   _order?: string | null;
-  typeHandle: 'typeSectionProductIndex';
+  typeHandle: 'sectionProductIndex';
   slug: string;
   entryStatus: 'disabled' | 'live';
   availability: 'available' | 'unavailable';
@@ -742,7 +746,8 @@ export interface Product {
    * Badge will only shown on product listing page
    */
   badge?: (number | null) | Tag;
-  flavour: Flavour;
+  quantity?: number | null;
+  flavour?: Flavour;
   prices: {
     price: Price;
     id?: string | null;
@@ -758,9 +763,9 @@ export interface Product {
  */
 export interface Flavour {
   showFlavour?: boolean | null;
-  freshCreamy: '_0' | '_10' | '_20' | '_30' | '_40' | '_50' | '_60' | '_70' | '_80' | '_90' | '_100';
-  custardySpongy: '_0' | '_10' | '_20' | '_30' | '_40' | '_50' | '_60' | '_70' | '_80' | '_90' | '_100';
-  tangySweet: '_0' | '_10' | '_20' | '_30' | '_40' | '_50' | '_60' | '_70' | '_80' | '_90' | '_100';
+  freshCreamy?: ('_0' | '_10' | '_20' | '_30' | '_40' | '_50' | '_60' | '_70' | '_80' | '_90' | '_100') | null;
+  custardySpongy?: ('_0' | '_10' | '_20' | '_30' | '_40' | '_50' | '_60' | '_70' | '_80' | '_90' | '_100') | null;
+  tangySweet?: ('_0' | '_10' | '_20' | '_30' | '_40' | '_50' | '_60' | '_70' | '_80' | '_90' | '_100') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1501,6 +1506,9 @@ export interface AddonsSelect<T extends boolean = true> {
   title?: T;
   url?: T;
   uri?: T;
+  thumbnail?: T;
+  hasNote?: T;
+  note?: T;
   prices?:
     | T
     | {
@@ -1519,6 +1527,7 @@ export interface PriceSelect<T extends boolean = true> {
   salePrice?: T;
   isFree?: T;
   note?: T;
+  additionalInfo?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1529,7 +1538,6 @@ export interface CategoriesSelect<T extends boolean = true> {
   slug?: T;
   entryStatus?: T;
   title?: T;
-  description?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1558,6 +1566,8 @@ export interface PagesSelect<T extends boolean = true> {
   url?: T;
   uri?: T;
   contentBlocks?: T | ContentBlocksSelect<T>;
+  category?: T;
+  description?: T;
   meta?: T | MetaSelect<T>;
   updatedAt?: T;
   createdAt?: T;
@@ -1597,7 +1607,6 @@ export interface LinkSelect<T extends boolean = true> {
   source?: T;
   product?: T;
   page?: T;
-  category?: T;
   custom?: T;
   mail?: T;
   whatsappNumber?: T;
@@ -1703,6 +1712,7 @@ export interface ProductsSelect<T extends boolean = true> {
   description?: T;
   category?: T;
   badge?: T;
+  quantity?: T;
   flavour?: T | FlavourSelect<T>;
   prices?:
     | T
@@ -1937,6 +1947,7 @@ export interface Homepage {
 export interface Footer {
   id: number;
   address?: string | null;
+  addressLink?: Link;
   businessHours?: string | null;
   socialMedia?: SocialMedia;
   updatedAt?: string | null;
@@ -2031,6 +2042,7 @@ export interface HomepageSelect<T extends boolean = true> {
  */
 export interface FooterSelect<T extends boolean = true> {
   address?: T;
+  addressLink?: T | LinkSelect<T>;
   businessHours?: T;
   socialMedia?: T | SocialMediaSelect<T>;
   updatedAt?: T;
