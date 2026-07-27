@@ -2,13 +2,14 @@ import { Field, ArrayField } from 'payload';
 
 import { BaseLinkTarget } from '@/shared/BaseLinkTarget';
 
-export type BaseLinkProps = Pick<ArrayField, 'name' | 'maxRows'>;
+export type BaseLinkProps = Pick<ArrayField, 'name' | 'maxRows' | 'label'>;
 
 export const BaseLink = (props?: BaseLinkProps): Field => {
     return {
         type: 'group',
         name: props?.name ?? 'link',
         interfaceName: 'Link',
+        label: props?.label,
         fields: [
             {
                 type: 'row',
@@ -22,7 +23,6 @@ export const BaseLink = (props?: BaseLinkProps): Field => {
                             width: '25%',
                         },
                         options: [
-                            { value: 'categories', label: 'Categories' },
                             { value: 'custom', label: 'Custom' },
                             { value: 'mail', label: 'Mail' },
                             { value: 'products', label: 'Products' },
@@ -48,16 +48,6 @@ export const BaseLink = (props?: BaseLinkProps): Field => {
                         required: true,
                         admin: {
                             condition: (data, siblingData) => siblingData?.source === 'pages',
-                        },
-                    },
-                    {
-                        type: 'relationship',
-                        name: 'category',
-                        label: false,
-                        relationTo: 'categories',
-                        required: true,
-                        admin: {
-                            condition: (data, siblingData) => siblingData?.source === 'categories',
                         },
                     },
                     {
