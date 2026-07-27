@@ -105,7 +105,7 @@ export const Products: CollectionConfig = {
                                 relationTo: 'categories',
                                 required: true,
                                 admin: {
-                                    width: '50%',
+                                    width: '42.5%',
                                 },
                             },
                             {
@@ -113,8 +113,15 @@ export const Products: CollectionConfig = {
                                 name: 'badge',
                                 relationTo: 'tags',
                                 admin: {
-                                    width: '50%',
+                                    width: '42.5%',
                                     description: 'Badge will only shown on product listing page',
+                                },
+                            },
+                            {
+                                type: 'number',
+                                name: 'quantity',
+                                admin: {
+                                    width: '15%',
                                 },
                             },
                         ],
@@ -136,19 +143,28 @@ export const Products: CollectionConfig = {
                                         name: 'freshCreamy',
                                         label: 'Fresh - Creamy',
                                         required: true,
-                                        admin: { width: '33%' },
+                                        admin: {
+                                            width: '33%',
+                                            condition: (data, siblingData) => siblingData?.showFlavour,
+                                        },
                                     }),
                                     BaseFlavour({
                                         name: 'custardySpongy',
                                         label: 'Custardy - Spongy',
                                         required: true,
-                                        admin: { width: '33%' },
+                                        admin: {
+                                            width: '33%',
+                                            condition: (data, siblingData) => siblingData?.showFlavour,
+                                        },
                                     }),
                                     BaseFlavour({
                                         name: 'tangySweet',
                                         label: 'Tangy - Sweet',
                                         required: true,
-                                        admin: { width: '33%' },
+                                        admin: {
+                                            width: '33%',
+                                            condition: (data, siblingData) => siblingData?.showFlavour,
+                                        },
                                     }),
                                 ],
                                 admin: {
