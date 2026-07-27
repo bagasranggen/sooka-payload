@@ -18,6 +18,10 @@ export const Footer: GlobalConfig = {
                             type: 'textarea',
                             name: 'address',
                         },
+                        BaseLink({
+                            name: 'addressLink',
+                            label: 'Address',
+                        }),
                         {
                             type: 'text',
                             name: 'businessHours',
