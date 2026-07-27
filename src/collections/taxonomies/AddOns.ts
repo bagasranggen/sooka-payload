@@ -14,12 +14,24 @@ export const AddOns: CollectionConfig = {
             {
                 label: 'Content',
                 fields: [
-                    // {
-                    //     type: 'upload',
-                    //     name: 'thumbnail',
-                    //     relationTo: 'mediaAddon',
-                    //     required: true,
-                    // },
+                    {
+                        type: 'upload',
+                        name: 'thumbnail',
+                        relationTo: 'mediaAddons',
+                        required: true,
+                    },
+                    {
+                        type: 'checkbox',
+                        name: 'hasNote',
+                        defaultValue: false,
+                    },
+                    {
+                        type: 'text',
+                        name: 'note',
+                        admin: {
+                            condition: (data, siblingData) => siblingData?.hasNote,
+                        },
+                    },
                     {
                         type: 'array',
                         name: 'prices',
