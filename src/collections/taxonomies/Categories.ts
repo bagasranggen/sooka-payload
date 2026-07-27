@@ -21,16 +21,5 @@ export const Categories: CollectionConfig = {
     fields: BaseEntry({
         typeHandle: [ENTRY_TYPE_HANDLES[ENTRY_HANDLES.CATEGORY]],
         url: { enabled: false },
-        tabs: [
-            {
-                label: 'Content',
-                fields: [
-                    {
-                        type: 'richText',
-                        name: 'description',
-                    },
-                ],
-            },
-        ],
     }),
 };

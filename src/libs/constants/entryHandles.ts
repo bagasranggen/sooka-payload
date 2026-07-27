@@ -6,7 +6,8 @@ export const ENTRY_HANDLES = {
 
     // PAGES
     STATIC_PAGE: 'sectionStaticPage',
-    PRODUCT: 'typeSectionProductIndex',
+    PRODUCT: 'sectionProductIndex',
+    PRODUCT_LISTING: 'sectionProductListingIndex',
 
     // TAXONOMIES
     CATEGORY: 'sectionTaxonomiesCategory',
@@ -31,6 +32,10 @@ export const ENTRY_TYPE_HANDLES: Record<string, Exclude<Option, string>> = {
     [ENTRY_HANDLES.PRODUCT]: {
         value: ENTRY_HANDLES.PRODUCT,
         label: 'Product Index',
+    },
+    [ENTRY_HANDLES.PRODUCT_LISTING]: {
+        value: ENTRY_HANDLES.PRODUCT_LISTING,
+        label: 'Product Listing Index',
     },
 
     // TAXONOMIES
