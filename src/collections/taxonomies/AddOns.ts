@@ -23,7 +23,7 @@ export const AddOns: CollectionConfig = {
                     {
                         type: 'array',
                         name: 'prices',
-                        fields: BasePrice,
+                        fields: BasePrice(),
                         required: true,
                         maxRows: 1,
                     },
