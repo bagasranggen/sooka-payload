@@ -142,27 +142,32 @@ export const Products: CollectionConfig = {
                                     BaseFlavour({
                                         name: 'freshCreamy',
                                         label: 'Fresh - Creamy',
-                                        required: true,
                                         admin: {
-                                            width: '33%',
+                                            width: '25%',
                                             condition: (data, siblingData) => siblingData?.showFlavour,
                                         },
                                     }),
                                     BaseFlavour({
                                         name: 'custardySpongy',
                                         label: 'Custardy - Spongy',
-                                        required: true,
                                         admin: {
-                                            width: '33%',
+                                            width: '25%',
                                             condition: (data, siblingData) => siblingData?.showFlavour,
                                         },
                                     }),
                                     BaseFlavour({
                                         name: 'tangySweet',
                                         label: 'Tangy - Sweet',
-                                        required: true,
                                         admin: {
-                                            width: '33%',
+                                            width: '25%',
+                                            condition: (data, siblingData) => siblingData?.showFlavour,
+                                        },
+                                    }),
+                                    BaseFlavour({
+                                        name: 'fruityNutty',
+                                        label: 'Fruity - Nutty',
+                                        admin: {
+                                            width: '25%',
                                             condition: (data, siblingData) => siblingData?.showFlavour,
                                         },
                                     }),
