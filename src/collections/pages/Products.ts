@@ -26,6 +26,28 @@ export const Products: CollectionConfig = {
     fields: BaseEntry({
         hasSeo: true,
         typeHandle: [ENTRY_TYPE_HANDLES[ENTRY_HANDLES.PRODUCT]],
+        url: {
+            additionalPath: async ({ siblingData, req: { payload } }) => {
+                const url = [];
+
+                if (siblingData?.category) {
+                    url.push('products');
+
+                    try {
+                        const category = await payload.find({
+                            collection: 'categories',
+                            where: {
+                                id: { equals: siblingData.category },
+                            },
+                        });
+
+                        if (category?.docs?.[0]?.slug) url.push(category.docs[0].slug);
+                    } catch {}
+                }
+
+                return url;
+            },
+        },
         sideBarFields: [
             {
                 type: 'select',

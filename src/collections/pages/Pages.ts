@@ -23,6 +23,19 @@ export const Pages: CollectionConfig = {
     fields: BaseEntry({
         hasSeo: true,
         typeHandle: [ENTRY_TYPE_HANDLES[ENTRY_HANDLES.STATIC_PAGE], ENTRY_TYPE_HANDLES[ENTRY_HANDLES.PRODUCT_LISTING]],
+        url: {
+            additionalPath: async ({ siblingData }) => {
+                const url = [];
+
+                if (siblingData?.typeHandle === ENTRY_TYPE_HANDLES[ENTRY_HANDLES.PRODUCT_LISTING]) {
+                    if (siblingData?.category) {
+                        url.push('products');
+                    }
+                }
+
+                return url;
+            },
+        },
         tabs: [
             {
                 label: 'Content',
