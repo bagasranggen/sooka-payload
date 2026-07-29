@@ -653,8 +653,8 @@ export interface Page {
   url?: string | null;
   uri?: string | null;
   contentBlocks?: ContentBlocks;
-  category?: (number | null) | Category;
-  description?: {
+  headerTitle?: string | null;
+  headerDescription?: {
     root: {
       type: string;
       children: {
@@ -669,6 +669,8 @@ export interface Page {
     };
     [k: string]: unknown;
   } | null;
+  headerBackground?: (number | null) | MediaProduct;
+  category?: (number | null) | Category;
   meta?: Meta;
   updatedAt: string;
   createdAt: string;
@@ -766,6 +768,7 @@ export interface Flavour {
   freshCreamy?: ('_0' | '_10' | '_20' | '_30' | '_40' | '_50' | '_60' | '_70' | '_80' | '_90' | '_100') | null;
   custardySpongy?: ('_0' | '_10' | '_20' | '_30' | '_40' | '_50' | '_60' | '_70' | '_80' | '_90' | '_100') | null;
   tangySweet?: ('_0' | '_10' | '_20' | '_30' | '_40' | '_50' | '_60' | '_70' | '_80' | '_90' | '_100') | null;
+  fruityNutty?: ('_0' | '_10' | '_20' | '_30' | '_40' | '_50' | '_60' | '_70' | '_80' | '_90' | '_100') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1566,8 +1569,10 @@ export interface PagesSelect<T extends boolean = true> {
   url?: T;
   uri?: T;
   contentBlocks?: T | ContentBlocksSelect<T>;
+  headerTitle?: T;
+  headerDescription?: T;
+  headerBackground?: T;
   category?: T;
-  description?: T;
   meta?: T | MetaSelect<T>;
   updatedAt?: T;
   createdAt?: T;
@@ -1734,6 +1739,7 @@ export interface FlavourSelect<T extends boolean = true> {
   freshCreamy?: T;
   custardySpongy?: T;
   tangySweet?: T;
+  fruityNutty?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
