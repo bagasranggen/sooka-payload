@@ -26,15 +26,46 @@ export const Pages: CollectionConfig = {
         tabs: [
             {
                 label: 'Content',
-                fields: [ContentBlocks()],
                 admin: {
                     condition: (data, siblingData) => {
                         return siblingData?.typeHandle === ENTRY_HANDLES.STATIC_PAGE;
                     },
                 },
+                fields: [ContentBlocks()],
+            },
+            {
+                label: 'Header',
+                admin: {
+                    condition: (data, siblingData) => {
+                        return siblingData?.typeHandle === ENTRY_HANDLES.PRODUCT_LISTING;
+                    },
+                },
+                fields: [
+                    {
+                        type: 'text',
+                        name: 'headerTitle',
+                        label: 'Title',
+                    },
+                    {
+                        type: 'richText',
+                        name: 'headerDescription',
+                        label: 'Description',
+                    },
+                    {
+                        type: 'upload',
+                        name: 'headerBackground',
+                        label: 'Background Image',
+                        relationTo: 'mediaProducts',
+                    },
+                ],
             },
             {
                 label: 'Content',
+                admin: {
+                    condition: (data, siblingData) => {
+                        return siblingData?.typeHandle === ENTRY_HANDLES.PRODUCT_LISTING;
+                    },
+                },
                 fields: [
                     {
                         type: 'row',
@@ -49,16 +80,7 @@ export const Pages: CollectionConfig = {
                             },
                         ],
                     },
-                    {
-                        type: 'richText',
-                        name: 'description',
-                    },
                 ],
-                admin: {
-                    condition: (data, siblingData) => {
-                        return siblingData?.typeHandle === ENTRY_HANDLES.PRODUCT_LISTING;
-                    },
-                },
             },
         ],
     }),
