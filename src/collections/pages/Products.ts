@@ -203,12 +203,7 @@ export const Products: CollectionConfig = {
                     {
                         type: 'array',
                         name: 'prices',
-                        fields: BasePrice({
-                            additionalFields: {
-                                type: 'text',
-                                name: 'additionalInfo',
-                            },
-                        }),
+                        fields: BasePrice(),
                         required: true,
                     },
                     {
