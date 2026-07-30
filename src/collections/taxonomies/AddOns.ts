@@ -35,7 +35,11 @@ export const AddOns: CollectionConfig = {
                     {
                         type: 'array',
                         name: 'prices',
-                        fields: BasePrice(),
+                        fields: BasePrice({
+                            additionalNote: {
+                                hidden: true,
+                            },
+                        }),
                         required: true,
                         maxRows: 1,
                     },

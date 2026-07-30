@@ -30,9 +30,9 @@ export const Products: CollectionConfig = {
             additionalPath: async ({ siblingData, req: { payload } }) => {
                 const url = [];
 
-                if (siblingData?.category) {
-                    url.push('products');
+                url.push('products');
 
+                if (siblingData?.category) {
                     try {
                         const category = await payload.find({
                             collection: 'categories',
@@ -203,12 +203,7 @@ export const Products: CollectionConfig = {
                     {
                         type: 'array',
                         name: 'prices',
-                        fields: BasePrice({
-                            additionalFields: {
-                                type: 'text',
-                                name: 'additionalInfo',
-                            },
-                        }),
+                        fields: BasePrice(),
                         required: true,
                     },
                     {
