@@ -30,9 +30,9 @@ export const Products: CollectionConfig = {
             additionalPath: async ({ siblingData, req: { payload } }) => {
                 const url = [];
 
-                if (siblingData?.category) {
-                    url.push('products');
+                url.push('products');
 
+                if (siblingData?.category) {
                     try {
                         const category = await payload.find({
                             collection: 'categories',
