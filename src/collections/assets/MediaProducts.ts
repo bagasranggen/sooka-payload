@@ -6,7 +6,13 @@ import { BaseAssets } from '@/shared';
 
 export const MediaProducts: CollectionConfig = BaseAssets({
     slug: 'mediaProducts',
-    mobileAssets: 'mediaProducts',
+    fields: [
+        {
+            name: 'portraitAssets',
+            type: 'upload',
+            relationTo: 'mediaProducts',
+        },
+    ],
     imageSizes: [
         MEDIA_DIMENSIONS.BANNER_DESKTOP,
         MEDIA_DIMENSIONS.BANNER_TABLET,

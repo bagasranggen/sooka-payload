@@ -452,7 +452,7 @@ export interface MediaMarquee {
 export interface MediaProduct {
   id: number;
   alt: string;
-  mobileAssets?: (number | null) | MediaProduct;
+  portraitAssets?: (number | null) | MediaProduct;
   prefix?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -1366,7 +1366,7 @@ export interface MediaMarqueesSelect<T extends boolean = true> {
  */
 export interface MediaProductsSelect<T extends boolean = true> {
   alt?: T;
-  mobileAssets?: T;
+  portraitAssets?: T;
   prefix?: T;
   updatedAt?: T;
   createdAt?: T;
