@@ -21,11 +21,13 @@ export const MediaProducts: CollectionConfig = BaseAssets({
             name: 'productDetailBanner',
             width: 1200,
             height: 900,
+            withoutEnlargement: false,
         },
         {
             name: 'productDetailSticky',
             width: 800,
             height: 1067,
+            withoutEnlargement: false,
         },
         {
             name: 'productDetailMobile',
