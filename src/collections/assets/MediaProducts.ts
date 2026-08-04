@@ -18,6 +18,12 @@ export const MediaProducts: CollectionConfig = BaseAssets({
         MEDIA_DIMENSIONS.BANNER_TABLET,
         MEDIA_DIMENSIONS.BANNER_MOBILE,
         {
+            name: 'productPopupBanner',
+            width: 1200,
+            height: 1600,
+            withoutEnlargement: false,
+        },
+        {
             name: 'productDetailBanner',
             width: 1200,
             height: 900,

@@ -490,6 +490,14 @@ export interface MediaProduct {
       filesize?: number | null;
       filename?: string | null;
     };
+    productPopupBanner?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
     productDetailBanner?: {
       url?: string | null;
       width?: number | null;
@@ -1403,6 +1411,16 @@ export interface MediaProductsSelect<T extends boolean = true> {
               filename?: T;
             };
         bannerMobile?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        productPopupBanner?:
           | T
           | {
               url?: T;
