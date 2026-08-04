@@ -5,6 +5,7 @@ export const MEDIA_DIMENSIONS: Record<string, ImageSize> = {
         name: 'bannerDesktop',
         width: 1600,
         height: 900,
+        withoutEnlargement: false,
     },
     BANNER_TABLET: {
         name: 'bannerTablet',
